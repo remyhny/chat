@@ -1,0 +1,17 @@
+﻿{
+	"http" :  {
+		"index": "app.html",
+		"port": 5555,
+		"www": "App/",
+		"mime": {
+		    "css" : "text/css",
+		    "gif" : "image/gif",
+		    "jpg" : "image/jpeg",
+		    "jpeg": "image/jpeg",
+		    "js"  : "application/javascript",
+		    "ttf"  : "font/ttf",
+		    "png" : "image/png",
+		    "html" : "text/html"
+		}
+	}
+}
