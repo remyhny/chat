@@ -2,6 +2,7 @@
     .controller('ChatCtrl', ['$location', '$scope', 'SocketService', function ($location, $scope, socketService) {
         this.login = null;
         this.messages = [];
+        this.listUsers = [];
         var socket = null;
 
         this.keyup = function (event) {
@@ -22,6 +23,11 @@
                 socket = socketService.socket;
                 socket.on('information', function (login) {
                     self.login = login;
+                    $scope.$apply();
+                });
+
+                socket.on('updatelstUser', function (listUsers) {
+                    self.listUsers = listUsers;
                     $scope.$apply();
                 });
 

@@ -5,6 +5,7 @@ function Room(io, path) {
     this.path = path;
     this.count = 0;
     this.lstUsers = {};
+    this.lstLogin = [];
 
     this.init = function () {
         console.log('init');
@@ -23,6 +24,8 @@ function Room(io, path) {
                     } else {
                         user.login = login;
                     }
+                    self.updateListLogin();
+                    self.sendEvent('updatelstUser', self.lstLogin);
                 });
 
                 socket.on('enter', function () {
@@ -43,9 +46,18 @@ function Room(io, path) {
                         delete self.lstUsers[user.index];
                         delete user;
                     }
+                    self.updateListLogin();
+                    self.sendEvent('updatelstUser', self.lstLogin);
                 });
             });
     };
+
+    this.updateListLogin = function () {
+        this.lstLogin = [];
+        for (i in this.lstUsers) {
+            this.lstLogin.push(this.lstUsers[i].login);
+        }
+    }
 
     this.sendInformation = function (user) {
         user.socket.emit('information', user.login);

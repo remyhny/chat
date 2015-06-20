@@ -1,10 +1,22 @@
 ﻿<div class="col-sm-12">
-    <div class="col-sm-6 col-sm-offset-3">
 
+
+    <div class="col-sm-2 col-sm-offset-2">
+        <div class="header-list">
+            Liste User
+        </div>
+        <div class="container-list">
+            <div ng-repeat="login in CC.listUsers">
+                {{login}}
+            </div>
+        </div>
+        
+    </div>
+    <div class="col-sm-6">
         <div class="header-container text-center">
             {{CC.login}}
         </div>
-        <div class="containerText">
+        <div class="container-text">
             <div ng-repeat="message in CC.messages">
                 {{message.from}} : {{message.text}}
             </div>
