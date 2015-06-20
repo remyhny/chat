@@ -8,6 +8,6 @@
     "node": ">=0.10.30"
   },
   "dependencies": {
-
+   "socket.io": "1.2"
   }
 }

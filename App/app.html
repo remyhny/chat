@@ -3,14 +3,19 @@
 <head>
     <title>chat</title>
     <link href="app.css" type="text/css" rel="stylesheet" />
+    <link href="Contents/css/bootstrap.min.css" type="text/css" rel="stylesheet" />
 </head>
-<body ng-app="chat">
-    <h1>Bienvenu sur le chat</h1>
+<body ng-app="modules">
+
     <div class="container-fluid fill">
-        <div class="row fill" ng-view></div>
+        <div class="row title-index">
+            <h1 class="col-sm-12 text-center">Angular Team</h1>
+        </div>
+        <div ng-view></div>
     </div>
 
     <!-- Lib -->
+    <script src="/socket.io/socket.io.js"></script>
     <script src="Scripts/angular.js"></script>
     <script src="Scripts/ngRoute.js"></script>
 
@@ -18,7 +23,11 @@
     <script src="app.js"></script>
 
     <!-- Controller -->
+    <script src="Modules/Chat/ChatCtrl.js"></script>
     <script src="Modules/Login/LoginCtrl.js"></script>
+
+    <!-- Services -->
+    <script src="Commons/Services/SocketService.js"></script>
 
 </body>
 </html>

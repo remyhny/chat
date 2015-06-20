@@ -1,8 +1,8 @@
 ﻿{
 	"http" :  {
-		"index": "app.html",
+		"index": "/app.html",
 		"port": 5555,
-		"www": "App/",
+		"www": "App",
 		"mime": {
 		    "css" : "text/css",
 		    "gif" : "image/gif",

@@ -2,10 +2,16 @@
 var http = require('http');
 var url = require('url');
 var fs = require('fs');
-
+var Socket = require('./Server/SocketIo.js');
 
 
 var httpServer = http.createServer(onRequest).listen(conf.http.port);
+var mySocket = new Socket(httpServer);
+
+var principalRoom = mySocket.createRoom('principal');
+principalRoom.init();
+
+
 
 //Fonction onRequest est exécutée à chaque requête sur le serveur
 function onRequest(request, response) {
@@ -22,7 +28,7 @@ function onRequest(request, response) {
         response.end(fs.readFileSync(conf.http.www + pathname));
     } catch (e) {
         response.writeHead(302, {
-            'Location': 'http://localhost:5555/'
+            'Location': 'http://78.249.100.158:5555/'
         });
         response.end();
     }

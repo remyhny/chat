@@ -1,2 +1,35 @@
-﻿body {
+﻿.title-index {
+    color: #fff;
+    background-color: #658092;
+    padding-bottom: 13px;
+}
+
+.login {
+    margin-top: 26px;
+}
+
+.header-container {
+    background-color: #f0f0f0;
+    border: 1px solid rgba(0,0,0,0.17);
+    border-bottom : none;
+    padding-top : 5px;
+    padding-bottom : 5px;
+    margin-top : 20px;
+}
+
+.containerText {
+    background-color: #f0f0f0;
+    min-height: 500px;
+    border: 1px solid rgba(0,0,0,0.17);
+    padding: 5px;
+}
+
+.inputChat {
+    width: 84% !important;
+    display: inline !important;
+}
+
+.buttonChat {
+    width: 15.45% !important;
+    vertical-align: initial !important;
 }

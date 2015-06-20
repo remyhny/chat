@@ -1,3 +1,10 @@
-﻿<div>
-  Page Login
+﻿<div class="col-sm-12 text-center">
+    <form class="form-inline login">
+        <div class="form-group">
+            <label for="Login">Login : </label>
+            <input type="text" ng-model="LC.login"  class="form-control" id="Login" placeholder="Login ....">
+        </div>
+        <input type="button" class="btn btn-default" value="Valider" ng-click="LC.connection()">
+
+    </form>
 </div>
