@@ -25,11 +25,11 @@ function Room(io, path) {
                         user.login = login;
                     }
                     self.updateListLogin();
-                    self.sendEvent('updatelstUser', self.lstLogin);
                 });
 
                 socket.on('enter', function () {
                     self.sendInformation(user);
+                    self.sendEvent('updatelstUser', self.lstLogin);
                 });
 
                 socket.on('sendMessage', function (message) {

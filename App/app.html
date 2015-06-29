@@ -2,15 +2,15 @@
 <html>
 <head>
     <title>chat</title>
-    <link href="app.css" type="text/css" rel="stylesheet" />
-    <link href="Contents/css/bootstrap.min.css" type="text/css" rel="stylesheet" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+    <link href="Css/waves.min.css" type="text/css" rel="stylesheet" />
+    <link href="Css/app.min.css" type="text/css" rel="stylesheet" />
+    <!--<link href="Contents/css/bootstrap.min.css" type="text/css" rel="stylesheet" />-->
+    <link href='http://fonts.googleapis.com/css?family=Roboto:400,300,700' rel='stylesheet' type='text/css'>
 </head>
 <body ng-app="modules">
 
     <div class="container-fluid fill">
-        <div class="row title-index">
-            <h1 class="col-sm-12 text-center">Angular Team</h1>
-        </div>
         <div ng-view></div>
     </div>
 
@@ -28,6 +28,12 @@
 
     <!-- Services -->
     <script src="Commons/Services/SocketService.js"></script>
+
+    <!-- wave effect for click -->
+    <script src="Scripts/waves.min.js"></script>
+    <script type="text/javascript">
+        Waves.displayEffect();
+    </script>
 
 </body>
 </html>

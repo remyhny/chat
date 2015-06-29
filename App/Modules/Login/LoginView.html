@@ -1,10 +1,16 @@
-﻿<div class="col-sm-12 text-center">
-    <form class="form-inline login">
-        <div class="form-group">
-            <label for="Login">Login : </label>
-            <input type="text" ng-model="LC.login"  class="form-control" id="Login" placeholder="Login ....">
-        </div>
-        <input type="button" class="btn btn-default" value="Valider" ng-click="LC.connection()">
-
+﻿<div class="wrapperLoginPage">
+  <div class="wrapperLoginForm">
+    <div class="header">
+    <h1 class="col-sm-12 text-center">Angular Team</h1>
+  </div>
+    <form>
+      <div class="inputWrapper">
+        <input type="text" ng-model="LC.login" id="Text1" required>
+        <span class="highlight"></span>
+        <span class="bar"></span>
+        <label>Login</label>
+      </div>
+      <input type="button" class="validButton" value="ok" ng-click="LC.connection()">
     </form>
+  </div>
 </div>
