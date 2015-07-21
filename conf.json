@@ -1,17 +1,24 @@
 ﻿{
-	"http" :  {
-		"index": "/app.html",
-		"port": 5555,
-		"www": "App",
-		"mime": {
-		    "css" : "text/css",
-		    "gif" : "image/gif",
-		    "jpg" : "image/jpeg",
-		    "jpeg": "image/jpeg",
-		    "js"  : "application/javascript",
-		    "ttf"  : "font/ttf",
-		    "png" : "image/png",
-		    "html" : "text/html"
-		}
-	}
+  "http": {
+    "index": "/app.html",
+    "port": 5555,
+    "www": "App",
+    "mime": {
+      "css": "text/css",
+      "gif": "image/gif",
+      "jpg": "image/jpeg",
+      "jpeg": "image/jpeg",
+      "js": "application/javascript",
+      "ttf": "font/ttf",
+      "png": "image/png",
+      "html": "text/html"
+    }
+  },
+  "users": {
+    "Tib" : "Contents/images/tibImg.jpg",
+    "Remy" : "Contents/images/remyImg.jpg",
+    "Christian" : "Contents/images/chrisImg.png",
+    "Patou" : "Contents/images/patouImg.jpg",
+    "Typhux" : "Contents/images/fredImg.jpg"
+  }
 }

@@ -35,8 +35,9 @@ function Room(io, path) {
                 socket.on('sendMessage', function (message) {
                     msg = {
                         from: user.login,
+                        img : user.img,
                         text: message
-                    }
+                    };
                     self.sendEvent('newMessage', msg);
                 });
 
@@ -60,7 +61,7 @@ function Room(io, path) {
     }
 
     this.sendInformation = function (user) {
-        user.socket.emit('information', user.login);
+        user.socket.emit('information', {login : user.login, img : user.img});
     }
 
     this.sendEvent = function (type, message) {

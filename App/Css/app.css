@@ -347,12 +347,6 @@ body {
   color: #333;
   font-weight: 300;
 }
-.wrapperChatPage .mainContent .wrapperConvers .wrapperMessage:nth-child(odd) .imageUser {
-  background-image: url(../Contents/images/2.jpg);
-}
-.wrapperChatPage .mainContent .wrapperConvers .wrapperMessage:nth-child(even) .imageUser {
-  background-image: url(../Contents/images/1.jpg);
-}
 .wrapperChatPage .mainContent _:-moz-tree-row(hover),
 .wrapperChatPage .mainContent .wrapperConvers {
   bottom: 120px;

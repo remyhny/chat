@@ -1,6 +1,6 @@
 ﻿app
     .controller('ChatCtrl', ['$location', '$scope', '$window', 'SocketService', function ($location, $scope, $window, socketService) {
-        this.login = null;
+        this.user = null;
         this.messages = [];
         this.listUsers = [];
         this.socket = null;
@@ -64,8 +64,8 @@
 
             if (socketService.isInit) {
                 this.socket = socketService.socket;
-                this.socket.on('information', function (login) {
-                    self.login = login;
+                this.socket.on('information', function (user) {
+                    self.user = user;
                     $scope.$apply();
                 });
 
@@ -76,6 +76,7 @@
 
                 this.socket.on('newMessage', function (newMessage) {
                     if (newMessage) {
+                        console.log(newMessage);
                         self.messages.push(newMessage);
                         $scope.$apply();
                         self.scrollToEndOfChat();
