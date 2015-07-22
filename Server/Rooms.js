@@ -28,17 +28,21 @@ function Room(io, path) {
                 });
 
                 socket.on('enter', function () {
-                    self.sendInformation(user);
-                    self.sendEvent('updatelstUser', self.lstLogin);
+                    if(user){
+                        self.sendInformation(user);
+                        self.sendEvent('updatelstUser', self.lstLogin);
+                    }
                 });
 
                 socket.on('sendMessage', function (message) {
-                    msg = {
-                        from: user.login,
-                        img : user.img,
-                        text: message
-                    };
-                    self.sendEvent('newMessage', msg);
+                    if(user){
+                        msg = {
+                            from: user.login,
+                            img : user.img,
+                            text: message
+                        };
+                        self.sendEvent('newMessage', msg);
+                    }
                 });
 
                 socket.on('disconnect', function () {
