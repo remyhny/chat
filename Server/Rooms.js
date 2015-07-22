@@ -47,8 +47,8 @@ function Room(io, path) {
                 });
 
                 socket.on('disconnect', function () {
-                    console.log('disconnect : ' + user.login);
                     if (user && self.lstUsers[user.index]) {
+                        console.log('disconnect : ' + user.login);
                         delete self.lstUsers[user.index];
                         delete user;
                     }
