@@ -74,6 +74,12 @@
                     $scope.$apply();
                 });
 
+                this.socket.on('history', function (history) {
+                    console.log(history);
+                    self.messages = history.reverse();
+                    $scope.$apply();
+                });
+
                 this.socket.on('newMessage', function (newMessage) {
                     if (newMessage) {
                         console.log(newMessage);

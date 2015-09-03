@@ -1,4 +1,6 @@
 ﻿var Users = require('./Users.js');
+var Mongo = require('./MongoDb.js');
+
 
 function Room(io, path) {
     this.io = io;
@@ -9,13 +11,13 @@ function Room(io, path) {
 
     this.init = function () {
         console.log('init');
+        var mongo = new Mongo('test');
         var self = this;
         this.io
             .of('/' + this.path)
             .on('connection', function (socket) {
                 console.log('connection');
                 var user;
-
                 socket.on('login', function (login) {
                     if (!user) {
                         user = new Users(login, socket, self.count);
@@ -29,9 +31,13 @@ function Room(io, path) {
                 });
 
                 socket.on('enter', function () {
-                    if(user){
+                    if (user) {
+                        mongo.find().then(function(data){
+                            self.sendEvent('history', data);
+                        });
                         self.sendInformation(user);
                         self.sendEvent('updatelstUser', self.lstLogin);
+            
                     }
                 });
 
@@ -42,6 +48,7 @@ function Room(io, path) {
                             img : user.img,
                             text: message
                         };
+                        mongo.add(msg);
                         self.sendEvent('newMessage', msg);
                     }
                 });

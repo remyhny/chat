@@ -12,7 +12,6 @@ var principalRoom = mySocket.createRoom('principal');
 principalRoom.init();
 
 
-
 //Fonction onRequest est exécutée à chaque requête sur le serveur
 function onRequest(request, response) {
     var pathname = url.parse(request.url).pathname;
@@ -28,7 +27,7 @@ function onRequest(request, response) {
         response.end(fs.readFileSync(conf.http.www + pathname));
     } catch (e) {
         response.writeHead(302, {
-            'Location': 'http://78.249.100.158:5555/'
+            'Location': 'http://localhost:5555/'
         });
         response.end();
     }
