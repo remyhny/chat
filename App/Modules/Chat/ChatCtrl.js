@@ -7,24 +7,7 @@
         this.hasLostFocus = false;
         this.manualScroll = false;
         this.chatBox = null;
-        this.endOfChat = null;
         this.hasLostFocus = false;
-
-
-        //// gestion du scroll manuel ou automatique////
-        $window.onblur = function () {
-            this.hasLostFocus = true;
-            this.manualScroll = true;
-        };
-
-        $window.onfocus = function () {
-            this.hasLostFocus = false;
-        };
-
-        this.scrollToEndOfChat = function () {
-            if (this.manualScroll || this.hasLostFocus) return;
-            this.endOfChat.scrollIntoView(true);
-        };
 
         //// Event touche enter////
         this.keyUp = function (event) {
@@ -46,22 +29,6 @@
         this.init = function () {
             var self = this;
 
-            ///initialisation du scroll de la chatBox
-            this.chatBox = document.getElementById('wrapperConvers');
-            this.endOfChat = document.getElementById('endOfChat');
-            this.chatBox.onscroll = function () {
-                if (this.chatBox) {
-                    if (this.chatBox.scrollTop >= this.chatBox.scrollHeight - this.chatBox.offsetHeight - 100) {
-                        this.manualScroll = false;
-                    } else {
-                        if (!this.manualScroll) {
-                            this.manualScroll = true;
-                        }
-                    }
-                }
-            };
-
-
             if (socketService.isInit) {
                 this.socket = socketService.socket;
                 this.socket.on('information', function (user) {
@@ -75,17 +42,14 @@
                 });
 
                 this.socket.on('history', function (history) {
-                    console.log(history);
                     self.messages = history.reverse();
                     $scope.$apply();
                 });
 
                 this.socket.on('newMessage', function (newMessage) {
                     if (newMessage) {
-                        console.log(newMessage);
                         self.messages.push(newMessage);
                         $scope.$apply();
-                        self.scrollToEndOfChat();
                     }
                 });
 

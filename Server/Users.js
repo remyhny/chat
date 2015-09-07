@@ -13,7 +13,7 @@ function User(login, socket, index) {
         return img;
     };
     this.img = this.getImg();
-
+    this.firstEnter = true;
 }
 
 module.exports = User;

@@ -3,7 +3,9 @@
         socketService.initSocket();
         var socket = socketService.socket;
         this.connection = function () {
-            socket.emit('login', this.login);
-            $location.path('chat');
+            if (this.login.length > 0) {
+                socket.emit('login', this.login);
+                $location.path('chat');
+            }
         };
     }])

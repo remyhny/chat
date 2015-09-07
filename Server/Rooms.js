@@ -32,9 +32,12 @@ function Room(io, path) {
 
                 socket.on('enter', function () {
                     if (user) {
-                        mongo.find().then(function(data){
-                            self.sendEvent('history', data);
-                        });
+                        if (user.firstEnter) {
+                            mongo.find().then(function (data) {
+                                user.socket.emit('history', data);
+                                user.firstEnter = false;
+                            });
+                        }
                         self.sendInformation(user);
                         self.sendEvent('updatelstUser', self.lstLogin);
             

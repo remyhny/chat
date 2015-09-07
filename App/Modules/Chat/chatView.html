@@ -29,7 +29,7 @@
             </div>
         </div>
 
-        <div id="wrapperConvers" class="wrapperConvers">
+        <div id="wrapperConvers" class="wrapperConvers" chat-scroll>
             <div class="wrapperMessage" ng-repeat="message in CC.messages">
                 <img class="imageUser" ng-src="{{message.img}}"/>
 
@@ -38,7 +38,6 @@
                     <p class="message">{{message.text}}</p>
                 </div>
             </div>
-            <div id="endOfChat"></div>
         </div>
 
 
