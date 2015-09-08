@@ -16,6 +16,9 @@
 
             $window.onfocus = function () {
                 hasLostFocus = false;
+                if (chatBox.scrollTop >= chatBox.scrollHeight - chatBox.offsetHeight - 20) {
+                    manualScroll = false;
+                }
             };
 
             var scrollToEndOfChat = function () {

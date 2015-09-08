@@ -11,7 +11,7 @@ function Room(io, path) {
 
     this.init = function () {
         console.log('init');
-        var mongo = new Mongo('test');
+        var mongo = new Mongo('chat');
         var self = this;
         this.io
             .of('/' + this.path)
@@ -40,16 +40,17 @@ function Room(io, path) {
                         }
                         self.sendInformation(user);
                         self.sendEvent('updatelstUser', self.lstLogin);
-            
+
                     }
                 });
 
                 socket.on('sendMessage', function (message) {
-                    if(user){
+                    if (user) {
                         msg = {
                             from: user.login,
-                            img : user.img,
-                            text: message
+                            img: user.img,
+                            text: message,
+                            date: new Date().toLocaleString()
                         };
                         mongo.add(msg);
                         self.sendEvent('newMessage', msg);
@@ -76,7 +77,7 @@ function Room(io, path) {
     }
 
     this.sendInformation = function (user) {
-        user.socket.emit('information', {login : user.login, img : user.img});
+        user.socket.emit('information', { login: user.login, img: user.img });
     }
 
     this.sendEvent = function (type, message) {

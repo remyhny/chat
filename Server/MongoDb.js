@@ -36,7 +36,7 @@ function MongoDb(database) {
         var p = new Promise(function (resolve, reject) {
             connect();
             var model = mongoose.model('messages', schemaMessage.schema);
-            var query = model.find().sort({ '$natural': -1 }).limit(50);
+            var query = model.find().sort({ '$natural': -1 }).limit(100);
             query.exec(function (err, data) {
                 resolve(data);
                 disconnect();

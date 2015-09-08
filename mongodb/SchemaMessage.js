@@ -4,7 +4,7 @@ var SchemaMessage = new mangoose.Schema({
     from: String,
     text: String,
     img : String,
-    date : Date
+    date : String
 });
 
 exports.schema = SchemaMessage;

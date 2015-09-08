@@ -30,12 +30,10 @@
         </div>
 
         <div id="wrapperConvers" class="wrapperConvers" chat-scroll>
-            <div class="wrapperMessage" ng-repeat="message in CC.messages">
-                <img class="imageUser" ng-src="{{message.img}}"/>
-
+            <div class="wrapperMessage" ng-repeat="message in CC.messages track by $index">
                 <div class="wrapperInfo">
-                    <div class="userName">{{message.from}}</div>
-                    <p class="message">{{message.text}}</p>
+                    <div class="userName">{{message.from}} {{message.date}} : <span class="message">{{message.text}}</span></div>
+                    
                 </div>
             </div>
         </div>
