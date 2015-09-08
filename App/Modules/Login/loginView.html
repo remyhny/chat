@@ -1,16 +1,19 @@
 ﻿<div class="wrapperLoginPage">
-  <div class="wrapperLoginForm">
-    <div class="header">
-    <h1 class="col-sm-12 text-center">Angular Team</h1>
-  </div>
-    <form>
-      <div class="inputWrapper">
-        <input type="text" ng-model="LC.login" id="Text1" required>
-        <span class="highlight"></span>
-        <span class="bar"></span>
-        <label>Login</label>
-      </div>
-      <input type="submit" class="validButton" value="ok" ng-click="LC.connection()">
-    </form>
-  </div>
+    <div ng-show="LC.isDisconnect && !LC.socketService.socket" class="disconnect">vous avez été déconnecté</div>
+    <div ng-show="LC.socketService.socket" class="disconnect">impossible de se connecter</div>
+    <div class="wrapperLoginForm">
+        <div class="header">
+            <h1 class="col-sm-12 text-center">Angular Team</h1>
+        </div>
+
+        <form>
+            <div class="inputWrapper">
+                <input type="text" ng-model="LC.login" id="Text1" required>
+                <span class="highlight"></span>
+                <span class="bar"></span>
+                <label>Login</label>
+            </div>
+            <input type="submit" class="validButton" value="ok" ng-click="LC.connection()">
+        </form>
+    </div>
 </div>

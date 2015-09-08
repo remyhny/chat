@@ -1,4 +1,4 @@
-/*@color:#ff9800;*/
+﻿/*@color:#ff9800;*/
 * {
   padding: 0;
   border: 0;
@@ -21,6 +21,10 @@ body {
   background-image: url(../Contents/images/bg.jpg);
   background-size: cover;
   background-position: 50%;
+}
+.wrapperLoginPage .disconnect {
+  color: red;
+  text-align: center;
 }
 .wrapperLoginPage .header {
   background: #6889ff;
