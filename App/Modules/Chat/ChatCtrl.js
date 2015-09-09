@@ -7,6 +7,30 @@
         this.manualScroll = false;
         this.chatBox = null;
         this.hasLostFocus = false;
+        this.isHistory = false;
+
+        this.nbMessages = 0;
+        this.watchMessages = null;
+        document.title = 'Chat';
+        var self = this;
+
+        this.onblur = function () {
+            self.watchMessages = $scope.$watch('CC.messages.length', function (value) {
+                self.nbMessages++;
+                document.title = 'Chat - ' + self.nbMessages + ' nouveau(x) messages';
+            });
+        };
+
+        this.onfocus = function () {
+            self.nbMessages = 0;
+            if (typeof self.watchMessages === 'function') {
+                self.watchMessages();
+            }
+            document.title = 'Chat';
+        };
+
+
+
 
         //// Event touche enter////
         this.keyUp = function (event) {
@@ -22,7 +46,7 @@
                 this.message = null;
             }
         };
-    
+
         ////initialisation des sockets////
         this.init = function () {
             var self = this;
@@ -40,7 +64,10 @@
                 });
 
                 socketService.socket.on('history', function (history) {
-                    self.messages = history.reverse();
+                    self.isHistory = true;
+                    if (history) {
+                        self.messages = history.reverse();
+                    }
                     $scope.$apply();
                 });
 

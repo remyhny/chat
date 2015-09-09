@@ -4,16 +4,30 @@ function User(login, socket, index) {
     this.login = login;
     this.socket = socket;
     this.index = index;
-    this.getImg = function(){
-        if(conf.users[this.login]){
-            var img = conf.users[this.login];
+ 
+    this.firstEnter = true;
+
+
+    var getImg = function (login) {
+        if(conf.users[login]){
+            var color = conf.users[login].img;
         }else{
-            var img = "Contents/images/1.jpg";
+            var color = "Contents/images/1.jpg";
+        }
+        return color;
+    };
+
+    var getColor = function(login){
+        if(conf.users[login]){
+            var img = conf.users[login].color;
+        }else{
+            var img = "black";
         }
         return img;
     };
-    this.img = this.getImg();
-    this.firstEnter = true;
+
+    this.img = getImg(this.login);
+    this.color = getColor(this.login);
 }
 
 module.exports = User;

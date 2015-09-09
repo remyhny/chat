@@ -49,6 +49,7 @@ function Room(io, path) {
                         msg = {
                             from: user.login,
                             img: user.img,
+                            color: user.color,
                             text: message,
                             date: new Date().toLocaleString()
                         };
@@ -72,7 +73,10 @@ function Room(io, path) {
     this.updateListLogin = function () {
         this.lstLogin = [];
         for (i in this.lstUsers) {
-            this.lstLogin.push(this.lstUsers[i].login);
+            this.lstLogin.push({
+                login: this.lstUsers[i].login,
+                img: this.lstUsers[i].img
+            });
         }
     }
 

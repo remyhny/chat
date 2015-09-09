@@ -218,6 +218,17 @@ body {
   font-weight: 300;
   margin: 20px 0;
 }
+.wrapperChatPage .sidebar .listUsers .user {
+  margin-top: 15px;
+}
+.wrapperChatPage .sidebar .listUsers .user .imageList {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background: #31417C;
+  vertical-align: middle;
+  margin-right: 15px;
+}
 .wrapperChatPage .mainContent {
   position: absolute;
   left: 257px;
@@ -341,10 +352,9 @@ body {
   font-weight: 500;
   color: #919191;
   line-height: 1.3em;
-  max-width: 90%;
-  text-overflow: ellipsis;
+  max-width: 95%;
+  word-break: break-all;
   overflow: hidden;
-  white-space: nowrap;
 }
 .wrapperChatPage .mainContent .wrapperConvers .wrapperMessage .wrapperInfo .message {
   margin-top: 1px;

@@ -1,4 +1,4 @@
-﻿app.directive('chatScroll', ['$window', function ($window) {
+﻿app.directive('chatScroll', ['$window', '$timeout', function ($window, $timeout) {
     return {
         restrict: 'A',
         link: function (scope, element, attrs) {
@@ -8,10 +8,23 @@
             endOfChat.id = 'endOfChat'
             element.append(endOfChat);
 
+            var watchHistory = scope.$watch('CC.messages', function (value) {
+                if (value.length > 0) {
+                    if (scope.CC.isHistory) {
+                        $timeout(function () {
+                            endOfChat.scrollIntoView(true);
+                        },0)
+                    }
+                    watchHistory();
+                }
+            });
 
             $window.onblur = function () {
                 hasLostFocus = true;
                 manualScroll = true;
+                if (scope.CC.onblur) {
+                    scope.CC.onblur();
+                }
             };
 
             $window.onfocus = function () {
@@ -19,7 +32,12 @@
                 if (chatBox.scrollTop >= chatBox.scrollHeight - chatBox.offsetHeight - 20) {
                     manualScroll = false;
                 }
+                if (scope.CC.onfocus) {
+                    scope.CC.onfocus();
+                }
             };
+
+
 
             var scrollToEndOfChat = function () {
                 if (manualScroll || hasLostFocus) return;
