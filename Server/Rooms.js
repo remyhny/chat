@@ -9,31 +9,74 @@ function Room(io, path) {
     this.lstUsers = {};
     this.lstLogin = [];
 
+    this.updateListLogin = function () {
+        this.lstLogin = [];
+        for (i in this.lstUsers) {
+            this.lstLogin.push({
+                login: this.lstUsers[i].login,
+                img: this.lstUsers[i].img
+            });
+        }
+    }
+
+    this.sendInformation = function (user) {
+        user.socket.emit('information', { login: user.login, img: user.img , pseudo : user.pseudo});
+    }
+
+    this.sendAuth = function (user) {
+        user.socket.emit('auth', true);
+    }
+
+    this.sendEvent = function (type, message) {
+        for (i in this.lstUsers) {
+            this.lstUsers[i].socket.emit(type, message);
+        }
+    }
+
+
+
     this.init = function () {
+        var self = this;
         console.log('init');
         var mongo = new Mongo('chat');
-        var self = this;
+
         this.io
             .of('/' + this.path)
             .on('connection', function (socket) {
-                console.log('connection');
                 var user;
                 socket.on('login', function (login) {
+                    var updateList = function () {
+                        var msg = {
+                            from: "System",
+                            img: user.img,
+                            text: user.pseudo + " joined the chat.",
+                            date: new Date().toTimeString().split(' ')[0]
+                        };
+                        self.updateListLogin();
+                        self.sendAuth(user);
+                    }
+
                     if (!user) {
-                        user = new Users(login, socket, self.count);
-                        self.lstUsers[self.count] = user;
-                        self.count++;
+                        user = new Users(login, socket, self.count, mongo);
+                        user.initUser().then(function () {
+                            self.lstUsers[self.count] = user;
+                            self.count++;
+                            updateList();
+                        });
                     } else {
                         user.login = login;
+                        user.initUser().then(function () {
+                            updateList();
+                        });
                     }
-                    console.log('login : ', user.login);
-                    self.updateListLogin();
                 });
+
+
 
                 socket.on('enter', function () {
                     if (user) {
                         if (user.firstEnter) {
-                            mongo.find().then(function (data) {
+                            mongo.find('messages', 'schemaMessage').then(function (data) {
                                 user.socket.emit('history', data);
                                 user.firstEnter = false;
                             });
@@ -46,14 +89,14 @@ function Room(io, path) {
 
                 socket.on('sendMessage', function (message) {
                     if (user) {
-                        msg = {
+                        var msg = {
                             from: user.login,
                             img: user.img,
                             color: user.color,
                             text: message,
-                            date: new Date().toLocaleString()
+                            date: new Date().toTimeString().split(' ')[0]
                         };
-                        mongo.add(msg);
+                        mongo.add(msg, 'messages', 'schemaMessage');
                         self.sendEvent('newMessage', msg);
                     }
                 });
@@ -70,25 +113,7 @@ function Room(io, path) {
             });
     };
 
-    this.updateListLogin = function () {
-        this.lstLogin = [];
-        for (i in this.lstUsers) {
-            this.lstLogin.push({
-                login: this.lstUsers[i].login,
-                img: this.lstUsers[i].img
-            });
-        }
-    }
 
-    this.sendInformation = function (user) {
-        user.socket.emit('information', { login: user.login, img: user.img });
-    }
-
-    this.sendEvent = function (type, message) {
-        for (i in this.lstUsers) {
-            this.lstUsers[i].socket.emit(type, message);
-        }
-    }
 }
 
 module.exports = Room;

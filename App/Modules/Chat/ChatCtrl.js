@@ -8,9 +8,11 @@
         this.chatBox = null;
         this.hasLostFocus = false;
         this.isHistory = false;
-
         this.nbMessages = 0;
         this.watchMessages = null;
+        this.isConfig = true;
+
+
         document.title = 'Chat';
         var self = this;
 
@@ -29,9 +31,6 @@
             document.title = 'Chat';
         };
 
-
-
-
         //// Event touche enter////
         this.keyUp = function (event) {
             if (event.keyCode === 13) {
@@ -42,7 +41,7 @@
         ////Envoyer un message////
         this.sendMessage = function () {
             if (this.message) {
-                socketService.socket.emit('sendMessage', this.message);
+                socketService.emit('sendMessage', this.message);
                 this.message = null;
             }
         };
@@ -53,32 +52,42 @@
 
             if (socketService.isInit && socketService.socket) {
 
-                socketService.socket.on('information', function (user) {
+                socketService.addListener('information', 'chat', function (user) {
                     self.user = user;
-                    $scope.$apply();
-                });
+         
+                    //var configCanvas = document.getElementById('configCanvas');
+                    //var context = configCanvas.getContext('2d');
+                    //console.log(user.img);
+                    //var imageObj = new Image();
+                    //imageObj.onload = function () {
+                    //    context.drawImage(this, 0, 0);
+                    //};
+                    //imageObj.src = user.img;
 
-                socketService.socket.on('updatelstUser', function (listUsers) {
+                    $scope.$apply();
+                })
+
+                socketService.addListener('updatelstUser', 'chat', function (listUsers) {
                     self.listUsers = listUsers;
                     $scope.$apply();
-                });
+                })
 
-                socketService.socket.on('history', function (history) {
+                socketService.addListener('history', 'chat', function (history) {
                     self.isHistory = true;
                     if (history) {
                         self.messages = history.reverse();
                     }
                     $scope.$apply();
-                });
+                })
 
-                socketService.socket.on('newMessage', function (newMessage) {
+                socketService.addListener('newMessage', 'chat', function (newMessage) {
                     if (newMessage) {
                         self.messages.push(newMessage);
                         $scope.$apply();
                     }
-                });
+                })
 
-                socketService.socket.emit('enter');
+                socketService.emit('enter');
 
             } else {
                 $location.path('/');
@@ -86,4 +95,8 @@
         };
 
         this.init();
+
+        $scope.$on('$destroy', function () {
+
+        });
     }])

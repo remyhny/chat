@@ -1,5 +1,5 @@
 ﻿app
-    .controller('LoginCtrl', ['$location', 'SocketService', function ($location, socketService) {
+    .controller('LoginCtrl', ['$scope', '$location', 'SocketService', function ($scope, $location, socketService) {
         this.isDisconnect = false;
         this.socketService = socketService;
         if (!socketService.socket && socketService.isInit) {
@@ -10,13 +10,16 @@
             if (this.login.length > 0) {
                 if (!socketService.socket || (socketService.socket && !socketService.socket.connected)) {
                     socketService.initSocket().then(function () {
-                        socketService.socket.emit('login', self.login);
-                        $location.path('chat');
+                        socketService.addListener('auth', 'login', function () {
+                            console.log('auth');
+                            $location.path('chat');
+                            $scope.$apply();
+                        })
+                        socketService.emit('login', self.login);
                     });
                 }
                 else if (socketService.socket && socketService.socket.connected) {
-                    socketService.socket.emit('login', self.login);
-                    $location.path('chat');
+                    socketService.emit('login', self.login);
                 }
             }
         };
