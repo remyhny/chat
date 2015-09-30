@@ -27,7 +27,7 @@ function onRequest(request, response) {
         response.end(fs.readFileSync(conf.http.www + pathname));
     } catch (e) {
         response.writeHead(302, {
-            'Location': 'http://localhost:5555/'
+            'Location': 'http://localhost/'
         });
         response.end();
     }

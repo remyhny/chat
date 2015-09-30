@@ -8,7 +8,7 @@
         var self = this;
         var deferred = $q.defer();
 
-        this.socket = io('/principal', { port: 5555 });
+        this.socket = io('/principal', { port: 80 });
         this.isInit = true;
 
         this.socket.on('connect', function () {
