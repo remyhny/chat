@@ -1,4 +1,4 @@
-/*@color:#ff9800;*/
+﻿/*@color:#ff9800;*/
 * {
   padding: 0;
   border: 0;
@@ -383,6 +383,15 @@ body {
   margin-top: 1px;
   color: #333;
   font-weight: 300;
+}
+.wrapperChatPage .mainContent .wrapperConvers .wrapperMessage .wrapperInfo .message .emoticon {
+  display: inline-block;
+  background: url("../Contents/images/emoticons.png") 0 0 no-repeat;
+  height: 15px;
+  width: 15px;
+}
+.wrapperChatPage .mainContent .wrapperConvers .wrapperMessage .wrapperInfo .message .emoticon1 {
+  background-position: 0 0;
 }
 .wrapperChatPage .mainContent _:-moz-tree-row(hover),
 .wrapperChatPage .mainContent .wrapperConvers {

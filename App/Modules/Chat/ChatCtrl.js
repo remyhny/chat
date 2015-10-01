@@ -1,6 +1,7 @@
 ﻿app
-    .controller('ChatCtrl', ['$location', '$scope', '$window', 'SocketService', function ($location, $scope, $window, socketService) {
+    .controller('ChatCtrl', ['$location', '$scope', '$window', 'SocketService', 'EmoticonService', function ($location, $scope, $window, socketService, EmoticonService) {
         this.user = null;
+        this.message = null;
         this.messages = [];
         this.listUsers = [];
         this.hasLostFocus = false;
@@ -11,6 +12,7 @@
         this.nbMessages = 0;
         this.watchMessages = null;
         this.isConfig = true;
+        this.emoticonService = EmoticonService
 
 
         document.title = 'Chat';
@@ -18,6 +20,7 @@
 
         this.onblur = function () {
             self.watchMessages = $scope.$watch('CC.messages.length', function (value) {
+                alert('watchMessages')
                 self.nbMessages++;
                 document.title = 'Chat - ' + self.nbMessages + ' nouveau(x) messages';
             });
@@ -32,7 +35,7 @@
         };
 
         //// Event touche enter////
-        this.keyUp = function (event) {
+        this.keyDown = function (event) {
             if (event.keyCode === 13) {
                 this.sendMessage();
             }
@@ -40,6 +43,7 @@
 
         ////Envoyer un message////
         this.sendMessage = function () {
+            alert('sendMessages')
             if (this.message) {
                 socketService.emit('sendMessage', this.message);
                 this.message = null;
@@ -76,6 +80,9 @@
                     self.isHistory = true;
                     if (history) {
                         self.messages = history.reverse();
+                        for (var i = 0, l = self.messages.length; i < l; i++) {
+                            self.messages[i].text = self.emoticonService.searchEmoticon(self.messages[i].text);
+                        }
                     }
                     $scope.$apply();
                 })
@@ -97,6 +104,8 @@
         this.init();
 
         $scope.$on('$destroy', function () {
-
+            if (typeof self.watchMessages === 'function') {
+                self.watchMessages();
+            }
         });
     }])
