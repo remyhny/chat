@@ -20,7 +20,6 @@
 
         this.onblur = function () {
             self.watchMessages = $scope.$watch('CC.messages.length', function (value) {
-                alert('watchMessages')
                 self.nbMessages++;
                 document.title = 'Chat - ' + self.nbMessages + ' nouveau(x) messages';
             });
@@ -43,7 +42,6 @@
 
         ////Envoyer un message////
         this.sendMessage = function () {
-            alert('sendMessages')
             if (this.message) {
                 socketService.emit('sendMessage', this.message);
                 this.message = null;
