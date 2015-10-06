@@ -1,14 +1,17 @@
 {
-  "name": "Chat",
-  "description": "Chat",
-  "version": "0.0.1",
-  "repository": "git://github.com/remyhny/chat",
-  "main": "index",
-  "engines": {
-    "node": ">=0.12.8"
-  },
-  "dependencies": {
-   "socket.io": "1.2",
-   "mongoose" : "4.1.5"
-  }
+    "name": "Chat",
+    "description": "Chat",
+    "version": "0.0.1",
+    "repository": "git://github.com/remyhny/chat",
+    "main": "index",
+    "engines":
+    {
+        "node": ">=0.12.8"
+    },
+    "dependencies":
+    {
+        "socket.io": "1.2",
+        "mongoose": "4.1.5",
+        "html-entities": "1.1.3"
+    }
 }

@@ -87,6 +87,7 @@
 
                 socketService.addListener('newMessage', 'chat', function (newMessage) {
                     if (newMessage) {
+                        newMessage.text = self.emoticonService.searchEmoticon(newMessage.text);
                         self.messages.push(newMessage);
                         $scope.$apply();
                     }

@@ -1,5 +1,6 @@
-﻿var Users = require('./Users.js');
-var Mongo = require('./MongoDb.js');
+﻿var Users = require('./Users.js'),
+ Mongo = require('./MongoDb.js'),
+ Html5Entities = require('html-entities').Html5Entities
 
 
 function Room(io, path) {
@@ -20,7 +21,7 @@ function Room(io, path) {
     }
 
     this.sendInformation = function (user) {
-        user.socket.emit('information', { login: user.login, img: user.img , pseudo : user.pseudo});
+        user.socket.emit('information', { login: user.login, img: user.img, pseudo: user.pseudo });
     }
 
     this.sendAuth = function (user) {
@@ -39,6 +40,7 @@ function Room(io, path) {
         var self = this;
         console.log('init');
         var mongo = new Mongo('chat');
+        var entities = new Html5Entities();
 
         this.io
             .of('/' + this.path)
@@ -93,7 +95,7 @@ function Room(io, path) {
                             from: user.login,
                             img: user.img,
                             color: user.color,
-                            text: message,
+                            text: entities.encode(message),
                             date: new Date().toTimeString().split(' ')[0]
                         };
                         mongo.add(msg, 'messages', 'schemaMessage');
