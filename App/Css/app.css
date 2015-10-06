@@ -168,6 +168,43 @@ body {
   text-transform: uppercase;
   box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12);
 }
+.wrapperPanel {
+  padding-left: 15px;
+  padding-top: 15px;
+}
+.wrapperPanel .information {
+  margin-bottom: 20px;
+}
+.wrapperPanel .information .important {
+  color: #d51010;
+}
+.wrapperChatPage .buttonPanel {
+  background-color: #6889ff;
+  padding-left: 59px;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  cursor: pointer;
+  margin-bottom: 15px;
+}
+.wrapperChatPage .panel {
+  background: #E0E0E0;
+  position: absolute;
+  top: 0;
+  left: 257px;
+  right: 0;
+  bottom: 0;
+  transform: translateY(-100%);
+  -webkit-transform: translateY(-100%);
+  -moz-transform: translateY(-100%);
+  -ms-transform: translateY(-100%);
+  transition: transform ease 0.35s;
+}
+.wrapperChatPage .openPanel {
+  transform: translateY(0);
+  -webkit-transform: translateY(0);
+  -moz-transform: translateY(0);
+  -ms-transform: translateY(0);
+}
 .wrapperChatPage .sidebar {
   position: fixed;
   left: 0;

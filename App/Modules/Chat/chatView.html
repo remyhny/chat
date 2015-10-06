@@ -5,6 +5,7 @@
             <div class="loginName">{{CC.user.login}}</div>
         </div>
         <div class="listUsers">
+            <div ng-click="CC.showPanel = !CC.showPanel" class="buttonPanel">Open Panel -></div>
             <h3>Online Now</h3>
             <div class="user" ng-repeat="user in CC.listUsers">
                 <img class="imageList" ng-src="{{user.img}}" />{{user.login}}
@@ -48,18 +49,7 @@
         </div>
     </div>
 
-<!--    <div ng-hide="!CC.isConfig" class="overflow">
+    <div class="panel" ng-class="{'openPanel' : CC.showPanel}">
+         <ng-include src="'Components/panel/panelView.html'"></ng-include>
     </div>
-    <div ng-hide="!CC.isConfig" class="config">
-        <div>
-            <span>Pseudo</span>
-            <input type="text" ng-model="CC.user.pseudo" />
-        </div>
-        <div> 
-            <input type="file" id="input">
-            <canvas class="imgUser" id="configCanvas">
-                Le navigateur ne supporte pas les canvas
-            </canvas>
-        </div>
-    </div>-->
 </div>

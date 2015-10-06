@@ -198,8 +198,49 @@ body {
     }
 }
 
+.wrapperPanel{
+    padding-left : 15px;
+    padding-top : 15px;
+    .information{
+        margin-bottom : 20px;
+
+        .important{
+            color:#d51010;
+        }
+    }
+}
 
 .wrapperChatPage {
+    .buttonPanel {
+        background-color: @color;
+        padding-left: 59px;
+        padding-top: 5px;
+        padding-bottom: 5px;
+        cursor: pointer;
+        margin-bottom: 15px;
+    }
+
+    .panel {
+        background: #E0E0E0;
+        position: absolute;
+        top: 0;
+        left: 257px;
+        right: 0;
+        bottom: 0;
+        transform: translateY(-100%);
+        -webkit-transform: translateY(-100%);
+        -moz-transform: translateY(-100%);
+        -ms-transform: translateY(-100%);
+        transition: transform ease 0.35s;
+    }
+
+    .openPanel {
+        transform: translateY(0);
+        -webkit-transform: translateY(0);
+        -moz-transform: translateY(0);
+        -ms-transform: translateY(0);
+    }
+
     .sidebar {
         position: fixed;
         left: 0;
