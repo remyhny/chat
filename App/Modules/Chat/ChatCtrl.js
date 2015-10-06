@@ -12,10 +12,13 @@
         this.nbMessages = 0;
         this.watchMessages = null;
         this.isConfig = true;
+        this.showPanel = false;
         this.emoticonService = EmoticonService
 
 
         document.title = 'Chat';
+   
+
         var self = this;
 
         this.onblur = function () {
@@ -54,18 +57,17 @@
 
             if (socketService.isInit && socketService.socket) {
 
+                document.addEventListener('keydown', function (e) {
+                    if (e.keyCode === 9) {
+                        e.preventDefault();
+                        e.stopPropagation();
+                        self.showPanel = !self.showPanel;
+                        $scope.$apply();
+                    }
+                });
+
                 socketService.addListener('information', 'chat', function (user) {
                     self.user = user;
-         
-                    //var configCanvas = document.getElementById('configCanvas');
-                    //var context = configCanvas.getContext('2d');
-                    //console.log(user.img);
-                    //var imageObj = new Image();
-                    //imageObj.onload = function () {
-                    //    context.drawImage(this, 0, 0);
-                    //};
-                    //imageObj.src = user.img;
-
                     $scope.$apply();
                 })
 
