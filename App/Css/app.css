@@ -399,6 +399,9 @@ body {
 .wrapperChatPage .mainContent .wrapperConvers .wrapperMessage .wrapperInfo .message .emoticon3 {
   background-position: 0 0;
 }
+.wrapperChatPage .mainContent .wrapperConvers .wrapperMessage .wrapperInfo .message .emoticon4 {
+  background-position: -234px 0;
+}
 .wrapperChatPage .mainContent _:-moz-tree-row(hover),
 .wrapperChatPage .mainContent .wrapperConvers {
   bottom: 120px;

@@ -1,7 +1,8 @@
 ﻿app.service('EmoticonService', function () {
     var emoticons = [{ text: '\\:\\)', class: 'emoticon1' },
                     { text: '\\:\\(', class: 'emoticon2' },
-                    { text: '\\:D', class: 'emoticon3' }];
+                    { text: '\\:D', class: 'emoticon3' },
+                    { text: '\\:p', class: 'emoticon4' }];
 
     this.searchEmoticon = function (input) {
         var newInput = input;
