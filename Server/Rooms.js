@@ -48,10 +48,10 @@ function Room(io, path) {
                     var updateList = function () {
                         var msg = {
                             from: "System",
-                            img: user.img,
-                            text: user.pseudo + " joined the chat.",
+                            text: user.login + " joined the chat.",
                             date: new Date().toTimeString().split(' ')[0]
                         };
+                        self.sendEvent('newMessage', msg);
                         self.updateListLogin();
                         self.sendAuth(user);
                     }
@@ -103,7 +103,13 @@ function Room(io, path) {
 
                 socket.on('disconnect', function () {
                     if (user && self.lstUsers[user.index]) {
-                        console.log('disconnect : ' + user.login);
+                        var msg = {
+                            from: "System",
+                            text: user.login + " quit the chat.",
+                            date: new Date().toTimeString().split(' ')[0]
+                        };
+
+                        self.sendEvent('newMessage', msg);
                         delete self.lstUsers[user.index];
                         delete user;
                     }
