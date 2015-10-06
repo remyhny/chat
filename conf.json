@@ -16,24 +16,28 @@
     },
     "users": {
         "Tib": {
-            "img": "Contents/images/tibImg.jpg",
+            "img": "Contents/images/tibImg.png",
             "color": "black"
         },
         "Remy": {
             "img": "Contents/images/remyImg.jpg",
-            "color": "red"
+            "color": "#C0392B"
         },
         "Christian": {
             "img": "Contents/images/chrisImg.png",
-            "color": "green"
+            "color": "#27AE60"
         },
         "Patou": {
             "img": "Contents/images/patouImg.jpg",
-            "color": "orange"
+            "color": "#F39C12"
         },
         "Typhux": {
             "img": "Contents/images/fredImg.jpg",
-            "color": "blue"
+            "color": "#2980B9"
+        },
+        "Mamanchou": {
+            "img": "Contents/images/mamanchouImg.jpg",
+            "color": "#8E44AD"
         }
 
     }
