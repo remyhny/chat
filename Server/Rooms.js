@@ -1,7 +1,7 @@
 ﻿var Users = require('./Users.js'),
  Mongo = require('./MongoDb.js'),
- Html5Entities = require('html-entities').Html5Entities
-
+ Html5Entities = require('html-entities').Html5Entities,
+ Quizz = require('./Quizz.js');
 
 function Room(io, path) {
     this.io = io;
@@ -9,6 +9,7 @@ function Room(io, path) {
     this.count = 0;
     this.lstUsers = {};
     this.lstLogin = [];
+    this.quizz = null;
 
     this.updateListLogin = function () {
         this.lstLogin = [];
@@ -33,8 +34,6 @@ function Room(io, path) {
             this.lstUsers[i].socket.emit(type, message);
         }
     }
-
-
 
     this.init = function () {
         var self = this;
@@ -100,6 +99,18 @@ function Room(io, path) {
                         };
                         mongo.add(msg, 'messages', 'schemaMessage');
                         self.sendEvent('newMessage', msg);
+
+                        // if(self.quizz && self.quizz.isInit) {
+                        //     self.quizz.checkResponse(message).then(function() {
+                        //         // if(self.quizz.statusResponse) {
+                        //         //     msg.from = "System";
+                        //         //     msg.text = user.login + " good answer!";
+                        //         //     msg.date = new Date().toTimeString().split(' ')[0];
+
+                        //         //     self.sendEvent('newMessage', msg);
+                        //         // }
+                        //     });
+                        // };
                     }
                 });
 
@@ -118,10 +129,33 @@ function Room(io, path) {
                     self.updateListLogin();
                     self.sendEvent('updatelstUser', self.lstLogin);
                 });
+
+                socket.on('initQuizz', function() {
+                    var msg = {
+                        from: "System",
+                        text: "",
+                        date: ""
+                    };
+
+                    if(self.quizz && self.quizz.isInit) {
+                        msg.text = "Omg " + user.login + "! There is already a quizz in progress, noob!";
+                        msg.date = new Date().toTimeString().split(' ')[0];
+
+                        self.sendEvent('newMessage', msg);
+                    } else {
+                        var quizz = new Quizz();
+                        quizz.initQuizz().then(function() {
+                            self.quizz = quizz;
+
+                            msg.text = user.login + " has started a quizz.";
+                            msg.date = new Date().toTimeString().split(' ')[0];
+
+                            self.sendEvent('newMessage', msg);
+                        });
+                    }
+                });
             });
     };
-
-
 }
 
 module.exports = Room;
