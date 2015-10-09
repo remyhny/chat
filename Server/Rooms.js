@@ -98,17 +98,9 @@ function Room(io, path) {
                         mongo.add(msg, 'messages', 'schemaMessage');
                         self.sendEvent('newMessage', msg);
 
-                        // if(self.quizz && self.quizz.isInit) {
-                        //     self.quizz.checkResponse(message).then(function() {
-                        //         // if(self.quizz.statusResponse) {
-                        //         //     msg.from = "System";
-                        //         //     msg.text = user.login + " good answer!";
-                        //         //     msg.date = new Date().toTimeString().split(' ')[0];
-
-                        //         //     self.sendEvent('newMessage', msg);
-                        //         // }
-                        //     });
-                        // };
+                        if(self.quizz && self.quizz.isInit && self.quizz.currentQuestion) {
+                            self.quizz.checkResponse(message, user);
+                        };
                     }
                 });
 

@@ -2,44 +2,62 @@ function Quizz(room) {
 	this.isInit = false;
 	this.listOfQuestions = [];
 	this.room = room;
-	this.questionInterval = 10000;
+	this.questionInterval = 5000;
 	this.answerDelay = 10000;
+	this.currentQuestion = null;
 	this.questionDelayTimeoutId = null;
+
+	var self = this;
 
 	var formatQuestion = function(question) {
 		return "Question: " + question.label;
 	};
 
-	var formatResponse = function(question) {
-		return "The good answer was: " + question.response;
+	var formatResponse = function(question, user) {
+		var response = "";
+
+		if(user) {
+			response = "Good job " + user.login + "! ";
+		}
+
+		return response + "The good answer was: " + question.response;
 	};
 
-	this.displayResponse = function(question, quizz, user) {
+	this.checkResponse = function(message, user) {
+		if(message.toLowerCase() === self.currentQuestion.response.toLowerCase()) {
+			clearTimeout(self.questionDelayTimeoutId);
+			self.displayResponse(self.currentQuestion, user);
+		}
+	};
+
+	this.displayResponse = function(question, user) {
 		var msg = {
             from: "Quizz",
-            text: formatResponse(question),
+            text: formatResponse(question, user),
             date: new Date().toTimeString().split(' ')[0]
         };
 
-        quizz.room.sendEvent('newMessage', msg);
-        quizz.removeQuestion();
+        self.room.sendEvent('newMessage', msg);
+        self.removeQuestion();
+        self.currentQuestion = null;
 
-        if(quizz.listOfQuestions.length) {
-			quizz.startQuestion(quizz.questionInterval);
+        if(self.listOfQuestions.length) {
+			self.startQuestion(self.questionInterval);
         } else {
-        	quizz.endQuizz();
+        	self.endQuizz();
         }
 	};
 
-	this.displayQuestion = function(question, quizz) {
+	this.displayQuestion = function(question) {
 		var msg = {
             from: "Quizz",
             text: formatQuestion(question),
             date: new Date().toTimeString().split(' ')[0]
         };
 
-        quizz.room.sendEvent('newMessage', msg);
-        quizz.questionDelayTimeoutId = setTimeout(quizz.displayResponse, quizz.answerDelay, question, quizz);
+        self.room.sendEvent('newMessage', msg);
+		self.currentQuestion = question;
+        self.questionDelayTimeoutId = setTimeout(self.displayResponse, self.answerDelay, question);
 	};
 
 	this.startQuestion = function(delay) {
@@ -49,20 +67,20 @@ function Quizz(room) {
             date: new Date().toTimeString().split(' ')[0]
         };
 
-		this.room.sendEvent('newMessage', msg);
-		setTimeout(this.displayQuestion, delay, this.listOfQuestions[0], this);
+		self.room.sendEvent('newMessage', msg);
+		setTimeout(self.displayQuestion, delay, self.listOfQuestions[0]);
 	};
 
 	this.addQuestion = function(question) {
-		this.listOfQuestions.push(question);
+		self.listOfQuestions.push(question);
 	};
 
 	this.removeQuestion = function() {
-		this.listOfQuestions.shift();
+		self.listOfQuestions.shift();
 	};
 
 	this.runQuizz = function() {
-		this.startQuestion(this.questionInterval);
+		self.startQuestion(self.questionInterval);
 	};
 
 	this.endQuizz = function () {
@@ -72,12 +90,12 @@ function Quizz(room) {
             date: new Date().toTimeString().split(' ')[0]
         };
 
-		this.room.sendEvent('newMessage', msg);
-		this.room.quizz = null;
+		self.room.sendEvent('newMessage', msg);
+		self.room.quizz = null;
+		self.currentQuestion = null;
 	};
 
 	this.initQuizz = function() {
-	 	var self = this;
 	    var prom = new Promise(function (resolve, reject) {
 	    	// Fetch questions from database
 	    	self.addQuestion({
