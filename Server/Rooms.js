@@ -72,8 +72,6 @@ function Room(io, path) {
                     }
                 });
 
-
-
                 socket.on('enter', function () {
                     if (user) {
                         if (user.firstEnter) {
@@ -143,7 +141,7 @@ function Room(io, path) {
 
                         self.sendEvent('newMessage', msg);
                     } else {
-                        var quizz = new Quizz();
+                        var quizz = new Quizz(self);
                         quizz.initQuizz().then(function() {
                             self.quizz = quizz;
 
@@ -151,6 +149,7 @@ function Room(io, path) {
                             msg.date = new Date().toTimeString().split(' ')[0];
 
                             self.sendEvent('newMessage', msg);
+                            quizz.runQuizz();
                         });
                     }
                 });
