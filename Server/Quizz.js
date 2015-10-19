@@ -105,14 +105,14 @@ function Quizz(room, mongo) {
 
 	this.initQuizz = function() {
 		// var q1 = {
-  //   		id: 1,
+		// 	id: 2,
 		// 	author: "Papachou",
 		// 	label: "Who is not in the pit?",
 		// 	response: "Mamanchou"
 		// };
 
 		// mongo.add(q1, 'questions', 'schemaQuestion');
-
+ 
 	    var prom = new Promise(function (resolve, reject) {
 	        mongo.find('questions', 'schemaQuestion').then(function (data) {
 	        	if(data && data.length) {

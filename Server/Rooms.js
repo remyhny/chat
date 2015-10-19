@@ -75,7 +75,7 @@ function Room(io, path) {
                 socket.on('enter', function () {
                     if (user) {
                         if (user.firstEnter) {
-                            mongo.find('messages', 'schemaMessage').then(function (data) {
+                            mongo.find('messages', 'schemaMessage', true, 100).then(function (data) {
                                 user.socket.emit('history', data);
                                 user.firstEnter = false;
                             });

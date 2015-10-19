@@ -39,20 +39,29 @@ function MongoDb(database) {
         return p;
     }
 
-    this.find = function (name, schema, search) {
+    this.find = function(name, schema, reverse, limit, property, search) {
         var p = new Promise(function (resolve, reject) {
             var model = mongoose.model(name, collection[schema]);
-            if (!search) {
-                var query = model.find().sort({ '$natural': -1 }).limit(100);
-            } else {
-                var query = model.find({login : search}).sort({ '$natural': -1 }).limit(100);
+            var query = model.find();
+
+            if(search && property) {
+                query.where(property).equals(search);
             }
+
+            if(reverse) {
+                query.sort({ '$natural': -1 })
+            }
+
+            if(limit && limit !== 0) {
+                query.limit(limit);
+            }
+
             query.exec(function (err, data) {
                 resolve(data);
             })
         });
         return p;
-    }
+    };
 
     connect();
 }
