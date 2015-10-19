@@ -2,6 +2,7 @@ var Mongo = require('./MongoDb.js');
 
 function Quizz(room, mongo) {
 	this.isInit = false;
+	this.numberOfQuestions = 5;
 	this.listOfQuestions = [];
 	this.room = room;
 	this.questionInterval = 5000;
@@ -24,6 +25,10 @@ function Quizz(room, mongo) {
 		}
 
 		return response + "The good answer was: " + question.response;
+	};
+
+	var getRandom = function(min, max) {
+	    return Math.floor(Math.random() * (max - min + 1)) + min;
 	};
 
 	this.checkResponse = function(message, user) {
@@ -109,11 +114,22 @@ function Quizz(room, mongo) {
 		// mongo.add(q1, 'questions', 'schemaQuestion');
 
 	    var prom = new Promise(function (resolve, reject) {
-	    	// Fetch questions from database
 	        mongo.find('questions', 'schemaQuestion').then(function (data) {
-	        	if(data && data.length) {	        		
-					self.addQuestion(data[0]);
-					self.addQuestion(data[1]);
+	        	if(data && data.length) {
+	        		var listOfId = [];
+
+	        		if(data.length < self.numberOfQuestions) {
+	        			self.numberOfQuestions = data.length;
+	        		}
+
+	        		while(self.listOfQuestions.length < self.numberOfQuestions) {
+	        			var random = getRandom(0, data.length - 1);
+
+	        			if(listOfId.indexOf(random) === -1) {
+	        				listOfId.push(random);
+	        				self.addQuestion(data[random]);
+	        			}
+	        		}
 
 			    	self.isInit = true;
 			        resolve(true);
