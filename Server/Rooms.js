@@ -133,7 +133,7 @@ function Room(io, path) {
 
                         self.sendEvent('newMessage', msg);
                     } else {
-                        var quizz = new Quizz(self);
+                        var quizz = new Quizz(self, mongo);
                         quizz.initQuizz().then(function() {
                             self.quizz = quizz;
 

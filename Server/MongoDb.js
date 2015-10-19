@@ -1,7 +1,8 @@
 ﻿var mongoose = require('mongoose');
 var collection = {
     'schemaMessage': require('../mongodb/SchemaMessage.js').schema,
-    'schemaLogin': require('../mongodb/SchemaLogin.js').schema
+    'schemaLogin': require('../mongodb/SchemaLogin.js').schema,
+    'schemaQuestion': require('../mongodb/SchemaQuestion.js').schema
 };
 
 

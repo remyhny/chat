@@ -1,11 +1,14 @@
-function Quizz(room) {
+var Mongo = require('./MongoDb.js');
+
+function Quizz(room, mongo) {
 	this.isInit = false;
 	this.listOfQuestions = [];
 	this.room = room;
 	this.questionInterval = 5000;
 	this.answerDelay = 10000;
 	this.currentQuestion = null;
-	this.questionDelayTimeoutId = null;
+	this.questionDelayTimeoutId = null;	
+    var mongo = mongo;
 
 	var self = this;
 
@@ -96,21 +99,26 @@ function Quizz(room) {
 	};
 
 	this.initQuizz = function() {
+		// var q1 = {
+  //   		id: 1,
+		// 	author: "Papachou",
+		// 	label: "Who is not in the pit?",
+		// 	response: "Mamanchou"
+		// };
+
+		// mongo.add(q1, 'questions', 'schemaQuestion');
+
 	    var prom = new Promise(function (resolve, reject) {
 	    	// Fetch questions from database
-	    	self.addQuestion({
-				id: 1,
-				label: "Who is in the pit ?",
-				response: "Papachou"
-			});
-			self.addQuestion({
-				id: 2,
-				label: "Who is not in the pit ?",
-				response: "Mamanchou"
-			});
+	        mongo.find('questions', 'schemaQuestion').then(function (data) {
+	        	if(data && data.length) {	        		
+					self.addQuestion(data[0]);
+					self.addQuestion(data[1]);
 
-	    	self.isInit = true;
-	        resolve(true);
+			    	self.isInit = true;
+			        resolve(true);
+	        	}
+	        });
 	    });
 	    return prom;
 	};
