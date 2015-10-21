@@ -51,11 +51,6 @@
             }
         };
 
-        this.launchQuizz = function() {
-            self.quizzService.initQuizz();
-            self.showPanel = false;
-        };
-
         ////initialisation des sockets////
         this.init = function () {
             var self = this;

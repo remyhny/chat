@@ -1,4 +1,4 @@
-﻿/*@color:#ff9800;*/
+/*@color:#ff9800;*/
 * {
   padding: 0;
   border: 0;
@@ -458,7 +458,7 @@ body {
   left: 0;
   right: 0;
   height: 40px;
-  background: linear-gradient(rgba(255, 255, 255, 0), #eeeeee 80%) top center no-repeat;
+  background: linear-gradient(rgba(255, 255, 255, 0), #eee 80%) top center no-repeat;
 }
 .wrapperChatPage .wrapperForm .inputWrapper {
   position: relative;
@@ -552,6 +552,45 @@ body {
 .wrapperChatPage .wrapperForm .buttonChat:active,
 .wrapperChatPage .wrapperForm .buttonChat:focus {
   outline: none;
+}
+.wrapperQuizzPanel {
+  padding: 5px;
+}
+.wrapperQuizzPanel .button {
+  width: auto;
+  height: 30px;
+  line-height: 30px;
+  padding: 0 10px;
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 500;
+  cursor: pointer;
+  -webkit-box-shadow: 0 1px 0 rgba(0, 0, 0, 0.05);
+  -moz-box-shadow: 0 1px 0 rgba(0, 0, 0, 0.05);
+  box-shadow: 0 1px 0 rgba(0, 0, 0, 0.05);
+  border: 1px solid rgba(0, 0, 0, 0.17);
+  background-color: #f5f5f5;
+}
+.wrapperQuizzPanel .wrapperQuizzForm {
+  padding: 5px;
+}
+.wrapperQuizzPanel .wrapperQuizzForm h4 {
+  margin-bottom: 5px;
+}
+.wrapperQuizzPanel .wrapperQuizzForm label {
+  display: block;
+  font-size: 14px;
+}
+.wrapperQuizzPanel .wrapperQuizzForm input {
+  display: block;
+  width: 30%;
+  height: 30px;
+  line-height: 30px;
+  padding: 0 10px;
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 500;
+  margin: 5px 0;
 }
 /*ANIMATIONS*/
 @-webkit-keyframes inputHighlighter {
