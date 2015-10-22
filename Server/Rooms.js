@@ -120,7 +120,7 @@ function Room(io, path) {
                     self.sendEvent('updatelstUser', self.lstLogin);
                 });
 
-                socket.on('initQuizz', function() {
+                socket.on('initQuizz', function(callback) {
                     var msg = {
                         from: "System",
                         text: "",
@@ -128,13 +128,10 @@ function Room(io, path) {
                     };
 
                     if(self.quizz && self.quizz.isInit) {
-                        msg.text = "Omg " + user.login + "! There is already a quizz in progress, noob!";
-                        msg.date = new Date().toTimeString().split(' ')[0];
-
-                        self.sendEvent('newMessage', msg);
+                        callback(false, "Omg " + user.login + "! There is already a quizz in progress, noob!");
                     } else {
                         var quizz = new Quizz(self, mongo);
-                        quizz.initQuizz().then(function() {
+                        quizz.initQuizz(callback).then(function() {
                             self.quizz = quizz;
 
                             msg.text = user.login + " has started a quizz.";
@@ -144,6 +141,27 @@ function Room(io, path) {
                             quizz.runQuizz();
                         });
                     }
+                });
+
+                socket.on('addQuizzQuestion', function(question) {
+                    mongo.find('questions', 'schemaQuestion').then(function (data) {
+                        var newQuestion = {
+                            id: 1,
+                            label: question.label,
+                            response: question.response,
+                            author: question.author
+                        }
+
+                        if(data && data.length) {
+                            var lastQuestion = data[data.length - 1];
+
+                            if(lastQuestion) {
+                                newQuestion.id = lastQuestion.id + 1;
+                            }
+                        }
+
+                        mongo.add(newQuestion, 'questions', 'schemaQuestion');
+                    });
                 });
             });
     };

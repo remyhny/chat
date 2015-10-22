@@ -71,7 +71,7 @@ function Quizz(room, mongo) {
 	this.startQuestion = function(delay) {
 		var msg = {
             from: "Quizz",
-            text: "Get ready! Next question in " + delay / 1000 + " seconds.",
+            text: "Get ready! Next question in " + delay / 1000 + " seconds. " + self.listOfQuestions.length + " question(s) left.",
             date: new Date().toTimeString().split(' ')[0]
         };
 
@@ -103,16 +103,7 @@ function Quizz(room, mongo) {
 		self.currentQuestion = null;
 	};
 
-	this.initQuizz = function() {
-		// var q1 = {
-		// 	id: 2,
-		// 	author: "Papachou",
-		// 	label: "Who is not in the pit?",
-		// 	response: "Mamanchou"
-		// };
-
-		// mongo.add(q1, 'questions', 'schemaQuestion');
- 
+	this.initQuizz = function(callback) { 
 	    var prom = new Promise(function (resolve, reject) {
 	        mongo.find('questions', 'schemaQuestion').then(function (data) {
 	        	if(data && data.length) {
@@ -132,7 +123,10 @@ function Quizz(room, mongo) {
 	        		}
 
 			    	self.isInit = true;
+	        		callback(true);
 			        resolve(true);
+	        	} else {
+	        		callback(false, "No question in database");
 	        	}
 	        });
 	    });

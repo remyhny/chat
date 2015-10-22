@@ -7,15 +7,36 @@ app.directive('quizzPanel', function () {
         },
         templateUrl: '/Components/quizz/quizzView.html',
         controller: ['$scope', 'QuizzService', function($scope, quizzService) {
+            $scope.defaultQuizzConfig = {
+                numberOfQuestions: 5,
+                questionInterval: 5,
+                answerDelay: 10
+            };
+
+            $scope.quizzConfig = null;
             $scope.question = null;
             $scope.response = null;
 
-            $scope.launchQuizz = function() {
-                quizzService.initQuizz();
-                $scope.showPanel = false;
+            var feedback = function(success, message) {
+                if(success) {
+                    $scope.showPanel = false;
+                }
+                else {
+                    alert(message);
+                }
             };
 
-            $scope.reset = function () {
+            $scope.launchQuizz = function(quizzForm) {
+                if(quizzForm && quizzForm.$valid && $scope.quizzConfig) {
+                    quizzService.initQuizz(feedback);
+                }                
+            };
+
+            $scope.resetQuizzForm = function () {
+                $scope.quizzConfig = angular.copy($scope.defaultQuizzConfig);
+            };
+
+            $scope.resetQuestionForm = function () {
                 $scope.question = null;
                 $scope.response = null;
             };
@@ -29,9 +50,11 @@ app.directive('quizzPanel', function () {
                     };
 
                     quizzService.addQuestion(question);
-                    $scope.reset();
+                    $scope.resetQuestionForm();
                 }
             };
+
+            $scope.resetQuizzForm();
         }]
     };
 });
