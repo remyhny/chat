@@ -38,7 +38,7 @@ function Room(io, path) {
     this.init = function () {
         var self = this;
         console.log('init');
-        var mongo = new Mongo('chat');
+        var mongo = new Mongo('chatBeta');
         var entities = new Html5Entities();
 
         this.io
