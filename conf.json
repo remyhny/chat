@@ -1,7 +1,7 @@
 ﻿{
     "http": {
         "index": "/app.html",
-        "port": 80,
+        "port": 5555,
         "www": "App",
         "mime": {
             "css": "text/css",
