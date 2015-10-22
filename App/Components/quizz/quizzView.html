@@ -1,0 +1,22 @@
+<div class="wrapperQuizzPanel">
+	<h2>Bienvenue dans le module Quizz !</h2>
+	<div class="wrapperQuizzForm">
+		<h4>Configurer un Quizz</h4>
+		<form name="quizzForm">
+			<label>Nombre de questions : </label><input ng-class="{'form-error': quizzForm.uNbQuestions.$error.min || quizzForm.uNbQuestions.$error.max}" name="uNbQuestions" type="number" ng-model="quizzConfig.numberOfQuestions" min="1" max="20"/>
+			<label>Temps entre chaque question (secondes) : </label><input ng-class="{'form-error': quizzForm.uQuestionInterval.$error.min || quizzForm.uQuestionInterval.$error.max}" name="uQuestionInterval" type="number" ng-model="quizzConfig.questionInterval" min="5" max="10"/>
+			<label>Temps pour donner la bonne réponse (secondes) : </label><input ng-class="{'form-error': quizzForm.uAnswerDelay.$error.min || quizzForm.uAnswerDelay.$error.max}" name="uAnswerDelay" type="number" ng-model="quizzConfig.answerDelay" min="10" max="30"/>
+			<button class="button" ng-click="launchQuizz(quizzForm)">Lancer le quizz</button>
+	  		<button class="button" ng-click="resetQuizzForm()">Réinitialiser</button>
+		</form>
+	</div>
+	<div class="wrapperQuizzForm">
+		<h4>Ajouter une nouvelle question</h4>
+		<form>
+			<label>Question : </label><input type="text" ng-model="question" placeholder="Pourquoi ?" />
+			<label>Réponse : </label><input type="text" ng-model="response" placeholder="La réponse D" />	  		
+			<button class="button" ng-click="addQuestion()">Ajouter</button>
+	  		<button class="button" ng-click="resetQuestionForm()">Réinitialiser</button>
+		</form>
+	</div>
+</div>

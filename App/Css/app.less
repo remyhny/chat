@@ -632,9 +632,62 @@ body {
     }
 }
 
+.wrapperQuizzPanel {
+    padding: 5px; 
 
+    .button {
+        width: auto;
+        height: 30px;
+        line-height: 30px;
+        padding: 0 10px;
+        font-size: 12px;
+        font-style: normal;
+        font-weight: 500;
+        cursor: pointer;
+        -webkit-box-shadow: 0 1px 0 rgba(0,0,0,0.05);
+        -moz-box-shadow: 0 1px 0 rgba(0,0,0,0.05);
+        box-shadow: 0 1px 0 rgba(0,0,0,0.05);
+        border: 1px solid rgba(0,0,0,0.17);
+        background-color: #f5f5f5;
+    }
 
+    .wrapperQuizzForm {
+        padding: 5px;
 
+        h4 {
+            margin-bottom: 5px;
+        }
+
+        label {
+            display: block;
+            font-size: 14px;
+        }
+
+        input {
+            display: block;
+            width: 30%;
+            height: 30px;
+            line-height: 30px;
+            padding: 0 10px;
+            font-size: 12px;
+            font-style: normal;
+            font-weight: 500;
+            margin: 5px 0;
+        }
+    }
+}
+
+input[type=number]::-webkit-inner-spin-button, 
+input[type=number]::-webkit-outer-spin-button { 
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    margin: 0; 
+}
+
+.form-error {
+    color: #f00;
+}
 
 
 

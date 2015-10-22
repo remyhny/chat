@@ -1,7 +1,7 @@
 ﻿var Users = require('./Users.js'),
  Mongo = require('./MongoDb.js'),
- Html5Entities = require('html-entities').Html5Entities
-
+ Html5Entities = require('html-entities').Html5Entities,
+ Quizz = require('./Quizz.js');
 
 function Room(io, path) {
     this.io = io;
@@ -9,6 +9,7 @@ function Room(io, path) {
     this.count = 0;
     this.lstUsers = {};
     this.lstLogin = [];
+    this.quizz = null;
 
     this.updateListLogin = function () {
         this.lstLogin = [];
@@ -33,8 +34,6 @@ function Room(io, path) {
             this.lstUsers[i].socket.emit(type, message);
         }
     }
-
-
 
     this.init = function () {
         var self = this;
@@ -73,12 +72,10 @@ function Room(io, path) {
                     }
                 });
 
-
-
                 socket.on('enter', function () {
                     if (user) {
                         if (user.firstEnter) {
-                            mongo.find('messages', 'schemaMessage').then(function (data) {
+                            mongo.find('messages', 'schemaMessage', true, 100).then(function (data) {
                                 user.socket.emit('history', data);
                                 user.firstEnter = false;
                             });
@@ -100,6 +97,10 @@ function Room(io, path) {
                         };
                         mongo.add(msg, 'messages', 'schemaMessage');
                         self.sendEvent('newMessage', msg);
+
+                        if(self.quizz && self.quizz.isInit && self.quizz.currentQuestion) {
+                            self.quizz.checkResponse(message, user);
+                        };
                     }
                 });
 
@@ -118,10 +119,55 @@ function Room(io, path) {
                     self.updateListLogin();
                     self.sendEvent('updatelstUser', self.lstLogin);
                 });
+
+                socket.on('initQuizz', function(options) {
+                    var msg = {
+                        from: "System",
+                        text: "",
+                        date: ""
+                    };
+
+                    if(self.quizz && self.quizz.isInit) {
+                        msg.text = "Omg " + user.login + "! There is already a quizz in progress, noob!";
+                        msg.date = new Date().toTimeString().split(' ')[0];
+                        
+                        self.sendEvent('newMessage', msg);
+                    } else {
+                        var quizz = new Quizz(self, mongo);
+                        quizz.initQuizz(options).then(function() {
+                            self.quizz = quizz;
+
+                            msg.text = user.login + " has started a quizz.";
+                            msg.date = new Date().toTimeString().split(' ')[0];
+
+                            self.sendEvent('newMessage', msg);
+                            quizz.runQuizz();
+                        });
+                    }
+                });
+
+                socket.on('addQuizzQuestion', function(question) {
+                    mongo.find('questions', 'schemaQuestion').then(function (data) {
+                        var newQuestion = {
+                            id: 1,
+                            label: question.label,
+                            response: question.response,
+                            author: question.author
+                        }
+
+                        if(data && data.length) {
+                            var lastQuestion = data[data.length - 1];
+
+                            if(lastQuestion) {
+                                newQuestion.id = lastQuestion.id + 1;
+                            }
+                        }
+
+                        mongo.add(newQuestion, 'questions', 'schemaQuestion');
+                    });
+                });
             });
     };
-
-
 }
 
 module.exports = Room;
