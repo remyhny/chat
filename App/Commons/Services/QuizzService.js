@@ -1,6 +1,6 @@
 app.service('QuizzService', ['$q', 'SocketService', function($q, SocketService) {
-	this.initQuizz = function(callback) {
-		SocketService.emit('initQuizz', callback);
+	this.initQuizz = function(options) {
+		SocketService.emit('initQuizz', options);
 	};
 
 	this.addQuestion = function(question) {

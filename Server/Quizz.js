@@ -103,11 +103,15 @@ function Quizz(room, mongo) {
 		self.currentQuestion = null;
 	};
 
-	this.initQuizz = function(callback) { 
+	this.initQuizz = function(options) {
 	    var prom = new Promise(function (resolve, reject) {
 	        mongo.find('questions', 'schemaQuestion').then(function (data) {
 	        	if(data && data.length) {
 	        		var listOfId = [];
+
+    				self.numberOfQuestions = options.numberOfQuestions  * 1000;
+					self.questionInterval = options.questionInterval * 1000;
+					self.answerDelay = options.answerDelay * 1000;
 
 	        		if(data.length < self.numberOfQuestions) {
 	        			self.numberOfQuestions = data.length;
@@ -123,10 +127,15 @@ function Quizz(room, mongo) {
 	        		}
 
 			    	self.isInit = true;
-	        		callback(true);
 			        resolve(true);
 	        	} else {
-	        		callback(false, "No question in database");
+	        		var msg = {
+			            from: "Quizz",
+			            text: "There is no question in database. Please add questions before launching a quizz.",
+			            date: new Date().toTimeString().split(' ')[0]
+			        };
+
+			        self.room.sendEvent('newMessage', msg);
 	        	}
 	        });
 	    });

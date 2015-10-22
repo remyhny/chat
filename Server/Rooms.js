@@ -120,7 +120,7 @@ function Room(io, path) {
                     self.sendEvent('updatelstUser', self.lstLogin);
                 });
 
-                socket.on('initQuizz', function(callback) {
+                socket.on('initQuizz', function(options) {
                     var msg = {
                         from: "System",
                         text: "",
@@ -128,10 +128,10 @@ function Room(io, path) {
                     };
 
                     if(self.quizz && self.quizz.isInit) {
-                        callback(false, "Omg " + user.login + "! There is already a quizz in progress, noob!");
+                        alert("Omg " + user.login + "! There is already a quizz in progress, noob!");
                     } else {
                         var quizz = new Quizz(self, mongo);
-                        quizz.initQuizz(callback).then(function() {
+                        quizz.initQuizz(options).then(function() {
                             self.quizz = quizz;
 
                             msg.text = user.login + " has started a quizz.";

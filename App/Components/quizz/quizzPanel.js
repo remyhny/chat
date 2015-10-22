@@ -17,19 +17,11 @@ app.directive('quizzPanel', function () {
             $scope.question = null;
             $scope.response = null;
 
-            var feedback = function(success, message) {
-                if(success) {
-                    $scope.showPanel = false;
-                }
-                else {
-                    alert(message);
-                }
-            };
-
             $scope.launchQuizz = function(quizzForm) {
                 if(quizzForm && quizzForm.$valid && $scope.quizzConfig) {
-                    quizzService.initQuizz(feedback);
-                }                
+                    quizzService.initQuizz($scope.quizzConfig);                    
+                    $scope.showPanel = false;
+                }       
             };
 
             $scope.resetQuizzForm = function () {
