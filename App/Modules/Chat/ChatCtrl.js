@@ -1,5 +1,5 @@
 ﻿app
-    .controller('ChatCtrl', ['$location', '$scope', '$window', 'SocketService', 'EmoticonService', function ($location, $scope, $window, socketService, EmoticonService) {
+    .controller('ChatCtrl', ['$location', '$scope', '$window', 'SocketService', 'EmoticonService', 'QuizzService', function ($location, $scope, $window, socketService, EmoticonService, QuizzService) {
         this.user = null;
         this.message = null;
         this.messages = [];
@@ -13,8 +13,8 @@
         this.watchMessages = null;
         this.isConfig = true;
         this.showPanel = false;
-        this.emoticonService = EmoticonService
-
+        this.emoticonService = EmoticonService;
+        this.quizzService = QuizzService;
 
         document.title = 'Chat';
    
