@@ -128,7 +128,10 @@ function Room(io, path) {
                     };
 
                     if(self.quizz && self.quizz.isInit) {
-                        alert("Omg " + user.login + "! There is already a quizz in progress, noob!");
+                        msg.text = "Omg " + user.login + "! There is already a quizz in progress, noob!";
+                        msg.date = new Date().toTimeString().split(' ')[0];
+                        
+                        self.sendEvent('newMessage', msg);
                     } else {
                         var quizz = new Quizz(self, mongo);
                         quizz.initQuizz(options).then(function() {
