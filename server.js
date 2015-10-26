@@ -6,11 +6,9 @@ var Socket = require('./Server/SocketIo.js');
 
 
 var httpServer = http.createServer(onRequest).listen(conf.http.port);
-var mySocket = new Socket(httpServer);
 
-var principalRoom = mySocket.createRoom('principal');
-principalRoom.init();
-
+Socket.initServer(httpServer);
+Socket.createRoom('principal');
 
 //Fonction onRequest est exécutée à chaque requête sur le serveur
 function onRequest(request, response) {
