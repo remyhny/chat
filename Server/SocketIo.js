@@ -1,7 +1,7 @@
 ﻿"use strict";
 
 var ChatRoom = require('./Rooms/ChatRoom.js');
-
+var logger = require('./Debug.js');
 var Users = require('./Users.js');
 
 class SocketIo {
@@ -10,7 +10,7 @@ class SocketIo {
             this.io = require('socket.io').listen(httpServer, { origins: '*:*' });
             this.rooms = [];
         } else {
-            console.log('listener socket.io déjà existant');
+            logger.log('error', 'listener socket.io déjà existant');
         }
     }
 
@@ -20,7 +20,7 @@ class SocketIo {
             this.rooms.push(room);
             room.init();
         } else {
-            console.log('aucun listener socket.io');
+            logger.log('error', 'aucun listener socket.io');
         }
     }
 
