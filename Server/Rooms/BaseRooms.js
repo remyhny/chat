@@ -1,6 +1,6 @@
 ﻿'use strict'
 
-
+var logger = require('../Debug.js');
 var Mongo = require('../MongoDb.js');
 
 class Room {
@@ -9,7 +9,7 @@ class Room {
         this.io = SocketIo.io;
         this.path = path;
         this.mongo = new Mongo('chat');
-        console.log('init', path);
+        logger.log('info','init: ' + path);
     };
 
    
@@ -24,7 +24,7 @@ class Room {
     };
 
     eventSocket(socket) {
-        console.log('connection a la room');
+        logger.log('info', 'connection a la room');
     }
 
 }

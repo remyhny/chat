@@ -39,6 +39,6 @@
             "img": "Contents/images/mamanchouImg.jpg",
             "color": "#8E44AD"
         }
-
-    }
+    },
+    "debug": false
 }
