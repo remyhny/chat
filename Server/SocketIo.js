@@ -1,5 +1,8 @@
 ﻿"use strict";
-var Rooms = require('./Rooms.js');
+
+var ChatRoom = require('./Rooms/ChatRoom.js');
+
+var Users = require('./Users.js');
 
 class SocketIo {
     static initServer(httpServer) {
@@ -13,7 +16,7 @@ class SocketIo {
 
     static createRoom(path) {
         if (this.io) {
-            var room = new Rooms(this.io, path);
+            var room = new ChatRoom(this, path);
             this.rooms.push(room);
             room.init();
         } else {
