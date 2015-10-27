@@ -6,8 +6,7 @@ function SocketIo(httpServer) {
     this.tabRoom = [];
 
     this.createRoom = function (path) {
-        var room = new Rooms(this.io, path);
-        return room;
+        return new Rooms(this.io, path);
     }
 }
 

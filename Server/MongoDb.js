@@ -28,29 +28,17 @@ function MongoDb(database) {
     };
 
     this.add = function (value, name, schema) {
-        var p = new Promise(function (resolve, reject) {
-            var model = mongoose.model(name, collection[schema]);
-            var addvalue = new model(value);
-            addvalue.save(function () {
-                resolve();
-            });
-        });
-        return p;
+        var model = mongoose.model(name, collection[schema]);
+        return new model(value).save();
     }
 
     this.find = function (name, schema, search) {
-        var p = new Promise(function (resolve, reject) {
-            var model = mongoose.model(name, collection[schema]);
-            if (!search) {
-                var query = model.find().sort({ '$natural': -1 }).limit(100);
-            } else {
-                var query = model.find({login : search}).sort({ '$natural': -1 }).limit(100);
-            }
-            query.exec(function (err, data) {
-                resolve(data);
-            })
-        });
-        return p;
+        var model = mongoose.model(name, collection[schema]);
+        if (!search) {
+            return model.find().sort({ '$natural': -1 }).limit(100).exec();
+        } else {
+            return model.find({login : search}).sort({ '$natural': -1 }).limit(100).exec();
+        }
     }
 
     connect();

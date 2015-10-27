@@ -13,22 +13,19 @@ function User(login, socket, index, mongo) {
     var mongo = mongo;
 
     var getImg = function (login) {
-
         if (conf.users[login]) {
-            var img = conf.users[login].img;
+            return conf.users[login].img;
         } else {
-            var img = "Contents/images/1.jpg";
+            return "Contents/images/1.jpg";
         }
-        return img;
     };
 
     var getColor = function (login) {
         if (conf.users[login]) {
-            var color = conf.users[login].color;
+            return conf.users[login].color;
         } else {
-            var color = "black";
+            return "black";
         }
-        return color;
     };
 
     this.initUser = function () {
