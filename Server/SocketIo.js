@@ -8,7 +8,6 @@ class SocketIo {
     static initServer(httpServer) {
         if (!this.io) {
             this.io = require('socket.io').listen(httpServer, { origins: '*:*' });
-            this.rooms = [];
         } else {
             console.log('listener socket.io déjà existant');
         }
@@ -28,5 +27,7 @@ class SocketIo {
         return this.rooms;
     }
 };
+
+SocketIo.rooms = [];
 
 module.exports = SocketIo;
