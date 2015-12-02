@@ -10,7 +10,6 @@
         //verification des liens
         html = new RegExp('(http|https)://[\\S]*', 'g');
         newInput = newInput.replace(html, function (test) {
-            console.log(test);
             return '<a href="' + test + '" target="_blank">' + test + '</a>';
         });
 

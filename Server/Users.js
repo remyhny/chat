@@ -1,7 +1,6 @@
 ﻿"use strict";
 
 var conf = require('../conf.json');
-var Mongo = require('./MongoDb.js');
 
 class User {
     constructor(login, socket, index, mongo) {
