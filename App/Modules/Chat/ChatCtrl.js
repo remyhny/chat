@@ -15,10 +15,8 @@
         this.showPanel = false;
         this.emoticonService = EmoticonService
 
-
         document.title = 'Chat';
    
-
         var self = this;
 
         this.onblur = function () {
@@ -56,15 +54,6 @@
             var self = this;
 
             if (socketService.isInit && socketService.socket) {
-
-                document.addEventListener('keydown', function (e) {
-                    if (e.keyCode === 9) {
-                        e.preventDefault();
-                        e.stopPropagation();
-                        self.showPanel = !self.showPanel;
-                        $scope.$apply();
-                    }
-                });
 
                 socketService.addListener('information', 'chat', function (user) {
                     self.user = user;
