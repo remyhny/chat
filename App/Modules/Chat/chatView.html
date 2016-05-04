@@ -49,7 +49,7 @@
         </div>
     </div>
 
-    <div class="panel" ng-class="{'openPanel' : CC.showPanel}">
+    <div class="panel" ng-class="{'openPanel' : CC.showPanel, 'closePanel' : !CC.showPanel}">
          <ng-include src="'Components/panel/panelView.html'"></ng-include>
     </div>
 </div>
