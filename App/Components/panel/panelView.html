@@ -1,4 +1,4 @@
-﻿<div class="wrapperPanel" ng-controller="PanelCtrl as PaC">
+﻿<div class="wrapperPanel" ng-controller="PanelCtrl as PaC" ng-class="{'openPanel' : CC.showPanel, 'closePanel' : !CC.showPanel}">
     <select ng-options="plugin.label for plugin in PaC.plugins" ng-model="PaC.selectPlugin"></select>
     <ng-include src="PaC.selectPlugin.view"></ng-include>
 </div>
