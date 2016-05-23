@@ -198,6 +198,13 @@ body {
     padding-left: 15px;
     padding-top: 15px;
 }
+    .wrapperPanel.openPanel {
+        display: block;
+    }
+
+    .wrapperPanel.closePanel {
+        display: none;
+    }
 
     .wrapperPanel .information {
         margin-bottom: 20px;
@@ -231,15 +238,10 @@ body {
 }
 
 .wrapperChatPage .openPanel {
-    display: block;
     transform: translateY(0);
     -webkit-transform: translateY(0);
     -moz-transform: translateY(0);
     -ms-transform: translateY(0);
-}
-
-.wrapperChatPage .closePanel {
-    display: none;
 }
 
 .wrapperChatPage .sidebar {
