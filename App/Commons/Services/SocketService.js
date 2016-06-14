@@ -1,6 +1,5 @@
 ﻿app.service('SocketService', ['$location', '$rootScope', '$q', function ($location, $rootScope, $q) {
     this.socket = null;
-    this.isInit = false;
     this.listener = {};
 
 
@@ -9,24 +8,23 @@
         var deferred = $q.defer();
 
         this.socket = io('/principal', { port: 80 });
-        this.isInit = true;
+        this.status = enumStatus.none;
 
         this.socket.on('connect', function () {
-            deferred.resolve();
+            self.status = enumStatus.connected;
+            deferred.resolve(self.status);
         });
 
         this.socket.on('connect_error', function () {
-            if (self.socket) {
-                self.socket.disconnect();
-                self.socket = null;
-            }
+            self.status = enumStatus.error;
+            self.disconnect();
+            deferred.reject(self.status);
         });
 
         this.socket.on('disconnect', function () {
-            console.log('disconnect');
-            self.socket.disconnect();
-            self.removeAllListenners();
-            self.socket = null;
+            self.status = enumStatus.disconnected;
+            self.disconnect();
+            deferred.reject(self.status);
 
             $rootScope.$apply(function () {
                 $location.path('/');
@@ -37,10 +35,16 @@
         return deferred.promise;
     };
 
+    this.disconnect = function(callback){
+        if(this.socket) {
+            this.socket.disconnect();
+        }
+        this.removeAllListenners();
+        this.socket = null;
+    };
 
     this.removeAllListenners = function () {
         var self = this;
-        console.log(self.listener);
         angular.forEach(this.listener, function (value, key) {
             self.socket.removeAllListeners(key);
         });
@@ -48,7 +52,7 @@
         self.socket.removeAllListeners('connect');
         self.socket.removeAllListeners('connect_error');
         self.socket.removeAllListeners('disconnect');
-    }
+    };
 
     this.addListener = function (name, sender, cb) {
         var launch;

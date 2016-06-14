@@ -1,4 +1,4 @@
-﻿/*@color:#ff9800;*/
+/*@color:#ff9800;*/
 * {
   padding: 0;
   border: 0;
@@ -47,6 +47,10 @@ body {
 }
 .wrapperLoginPage .disconnect {
   color: red;
+  text-align: center;
+}
+.wrapperLoginPage .connecting {
+  color: green;
   text-align: center;
 }
 .wrapperLoginPage .header {
@@ -458,7 +462,7 @@ body {
   left: 0;
   right: 0;
   height: 40px;
-  background: linear-gradient(rgba(255, 255, 255, 0), #eeeeee 80%) top center no-repeat;
+  background: linear-gradient(rgba(255, 255, 255, 0), #eee 80%) top center no-repeat;
 }
 .wrapperChatPage .wrapperForm .inputWrapper {
   position: relative;

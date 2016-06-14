@@ -11,13 +11,11 @@
         this.isHistory = false;
         this.nbMessages = 0;
         this.watchMessages = null;
-        this.isConfig = true;
         this.showPanel = false;
-        this.emoticonService = EmoticonService
+        this.emoticonService = EmoticonService;
 
 
         document.title = 'Chat';
-   
 
         var self = this;
 
@@ -55,7 +53,7 @@
         this.init = function () {
             var self = this;
 
-            if (socketService.isInit && socketService.socket) {
+            if (socketService.status == enumStatus.connected) {
 
                 document.addEventListener('keydown', function (e) {
                     if (e.keyCode === 9) {
@@ -69,12 +67,12 @@
                 socketService.addListener('information', 'chat', function (user) {
                     self.user = user;
                     $scope.$apply();
-                })
+                });
 
                 socketService.addListener('updatelstUser', 'chat', function (listUsers) {
                     self.listUsers = listUsers;
                     $scope.$apply();
-                })
+                });
 
                 socketService.addListener('history', 'chat', function (history) {
                     self.isHistory = true;
@@ -85,7 +83,7 @@
                         }
                     }
                     $scope.$apply();
-                })
+                });
 
                 socketService.addListener('newMessage', 'chat', function (newMessage) {
                     if (newMessage) {
@@ -93,7 +91,7 @@
                         self.messages.push(newMessage);
                         $scope.$apply();
                     }
-                })
+                });
 
                 socketService.emit('enter');
 
@@ -109,4 +107,4 @@
                 self.watchMessages();
             }
         });
-    }])
+    }]);

@@ -1,6 +1,7 @@
 ﻿<div class="wrapperLoginPage">
-    <div ng-show="LC.isDisconnect && !LC.socketService.socket" class="disconnect">vous avez été déconnecté</div>
-    <div ng-show="LC.socketService.socket" class="disconnect">impossible de se connecter</div>
+    <div ng-show="LC.status == 'disconnected'" class="disconnect">vous avez été déconnecté</div>
+    <div ng-show="LC.status == 'error'" class="disconnect">impossible de se connecter</div>
+    <div ng-show="LC.status == 'connecting'" class="connecting">En cours de connection</div>
     <div class="wrapperLoginForm">
         <div class="header">
             <h1 class="col-sm-12 text-center">Angular Team</h1>
