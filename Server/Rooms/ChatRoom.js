@@ -31,7 +31,8 @@ class ChatRoom extends BaseRooms {
                 var msg = {
                     from: "System",
                     text: user.login + " joined the chat.",
-                    date: new Date().toTimeString().split(' ')[0]
+                    date: new Date().toTimeString().split(' ')[0],
+                    IA: true
                 };
                 self.sendEvent('newMessage', msg);
                 self.updateListLogin();
@@ -88,7 +89,8 @@ class ChatRoom extends BaseRooms {
                 var msg = {
                     from: "System",
                     text: user.login + " quit the chat.",
-                    date: new Date().toTimeString().split(' ')[0]
+                    date: new Date().toTimeString().split(' ')[0],
+                    IA: true
                 };
 
                 self.sendEvent('newMessage', msg);

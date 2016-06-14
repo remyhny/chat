@@ -1,44 +1,43 @@
 ﻿{
-    "http": {
-        "index": "/app.html",
-        "port": 5555,
-        "www": "App",
-        "mime": {
-            "css": "text/css",
-            "gif": "image/gif",
-            "jpg": "image/jpeg",
-            "jpeg": "image/jpeg",
-            "js": "application/javascript",
-            "ttf": "font/ttf",
-            "png": "image/png",
-            "html": "text/html"
-        }
-    },
-    "users": {
-        "Tib": {
-            "img": "Contents/images/tibImg.png",
-            "color": "black"
-        },
-        "Remy": {
-            "img": "Contents/images/remyImg.jpg",
-            "color": "#C0392B"
-        },
-        "Christian": {
-            "img": "Contents/images/chrisImg.png",
-            "color": "#27AE60"
-        },
-        "Patou": {
-            "img": "Contents/images/patouImg.jpg",
-            "color": "#F39C12"
-        },
-        "Typhux": {
-            "img": "Contents/images/fredImg.jpg",
-            "color": "#2980B9"
-        },
-        "Mamanchou": {
-            "img": "Contents/images/mamanchouImg.jpg",
-            "color": "#8E44AD"
-        }
-
+  "http": {
+    "index": "/app.html",
+    "port": 80,
+    "www": "App",
+    "mime": {
+      "css": "text/css",
+      "gif": "image/gif",
+      "jpg": "image/jpeg",
+      "jpeg": "image/jpeg",
+      "js": "application/javascript",
+      "ttf": "font/ttf",
+      "png": "image/png",
+      "html": "text/html"
     }
+  },
+  "users": {
+    "Tib": {
+      "img": "Contents/images/tibImg.png",
+      "color": "black"
+    },
+    "Remy": {
+      "img": "Contents/images/remyImg.jpg",
+      "color": "#C0392B"
+    },
+    "Christian": {
+      "img": "Contents/images/chrisImg.png",
+      "color": "#27AE60"
+    },
+    "Patou": {
+      "img": "Contents/images/patouImg.jpg",
+      "color": "#F39C12"
+    },
+    "Typhux": {
+      "img": "Contents/images/fredImg.jpg",
+      "color": "#2980B9"
+    },
+    "Mamanchou": {
+      "img": "Contents/images/mamanchouImg.jpg",
+      "color": "#8E44AD"
+    }
+  }
 }

@@ -2,22 +2,35 @@
 
 var collection = {
     'schemaMessage': require('../mongodb/SchemaMessage.js').schema,
-    'schemaLogin': require('../mongodb/SchemaLogin.js').schema
+    'schemaLogin': require('../mongodb/SchemaLogin.js').schema,
+    'schemaQuestion': require('../mongodb/SchemaQuestion.js').schema
+};
+
+var confOpts = {
+    'search': {
+        method: 'equals'
+    },
+    'property': {
+        method: 'where'
+    },
+    'reverse': {
+        method: 'sort',
+        value: { '$natural': -1 }
+    },
+    'limit': {
+        method: 'limit'
+    }
+};
+
+var defaultOpts = {
+    'limit': 100,
+    'reverse': true
 };
 
 class MongoDb {
     constructor(database) {
         this.mongoose = require('mongoose');
         this.db = this.mongoose.connection;
-        //db.on('error', function (error) {
-        //    console.log('erreur de connection : ', error);
-        //})
-        //db.on('disconnected', function () {
-        //    console.log('deconnection base');
-        //})
-        //db.on('connected', function () {
-        //    console.log('Connection base')
-        //})
         this._database = database;
         this._connect();
     }
@@ -33,14 +46,20 @@ class MongoDb {
         return new model(value).save();
     }
 
-    find(name, schema, search) {
+    find(name, schema, opts) {
+        if (!opts) opts = defaultOpts;
         if (name, schema) {
-            var model = this.mongoose.model(name, collection[schema]);
-            if (!search) {
-                return model.find().sort({ '$natural': -1 }).limit(100).exec();
-            } else {
-                return model.find({ login: search }).sort({ '$natural': -1 }).limit(100).exec();
-            }
+            var model = this.mongoose.model(name, collection[schema]).find();
+            for (let idx in opts) {
+                if (confOpts[idx] && opts[idx]) {
+                    if (confOpts[idx].value) {
+                        model = model[confOpts[idx].method](confOpts[idx].value)
+                    } else {
+                        model = model[confOpts[idx].method](opts[idx]);
+                    }
+                }
+            };
+            return model.exec();
         }
     }
 }

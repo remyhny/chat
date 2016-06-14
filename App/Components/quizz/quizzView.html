@@ -1,0 +1,22 @@
+﻿<div class="wrapperQuizzPanel" ng-controller="QuizzCtrl as QuC" ng-init="QuC.init(CC.user)">
+    <h2>Bienvenue dans le module Quizz !</h2>
+    <div class="wrapperQuizzForm">
+        <h4>Configurer un Quizz</h4>
+        <form name="quizzForm">
+            <label>Nombre de questions : </label><input name="uNbQuestions" type="number" ng-model="QuC.quizzConfig.numberOfQuestions" min="1" max="20" />
+            <label>Temps entre chaque question (secondes) : </label><input name="uQuestionInterval" type="number" ng-model="QuC.quizzConfig.questionInterval" min="5" max="10" />
+            <label>Temps pour donner la bonne réponse (secondes) : </label><input name="uAnswerDelay" type="number" ng-model="QuC.quizzConfig.answerDelay" min="10" max="30" />
+            <input type="button" class="button" ng-disabled="!quizzForm.$valid" ng-click="QuC.launchQuizz(CC.showPanel)" value="Lancer le quizz" />
+            <input type="button" class="button" ng-click="QuC.resetQuizzForm()" value="Réinitialiser" />
+        </form>
+    </div>
+    <div class="wrapperQuizzForm">
+        <h4>Ajouter une nouvelle question</h4>
+        <form>
+            <label>Question : </label><input type="text" ng-model="QuC.question" placeholder="Pourquoi ?" />
+            <label>Réponse : </label><input type="text" ng-model="QuC.response" placeholder="La réponse D" />
+            <input type="button" class="button" ng-click="QuC.addQuestion()" value="Ajouter" />
+            <input type="button" class="button" ng-click="QuC.resetQuestionForm()" value="Réinitialiser" />
+        </form>
+    </div>
+</div>

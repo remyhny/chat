@@ -1,7 +1,6 @@
 ﻿"use strict";
 
 var ChatRoom = require('./Rooms/ChatRoom.js');
-
 var Users = require('./Users.js');
 
 class SocketIo {

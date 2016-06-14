@@ -1,3 +1,9 @@
 ﻿app.controller('PanelCtrl', [function () {
-    this.services = ['Pictionnary', 'quizz']
+    this.plugins = [
+        {
+            label: 'quizz',
+            view : 'Components/quizz/quizzView.html'
+        }
+    ]
+    this.selectPlugin = this.plugins[0];
 }])
