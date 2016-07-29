@@ -40,6 +40,10 @@ app.controller('QuizzCtrl', ['QuizzService', function (QuizzService) {
         }
     };
 
+    this.getQuestions = function () {
+        this.quizzService.getQuestions();
+    }
+
     this.resetQuizzForm();
 
     this.init = function (user) {

@@ -39,7 +39,7 @@ class Room {
         var self = this;
         socket.on('plugin', function (plugin) {
             if (self.plugins[plugin.label] && self.plugins[plugin.label][plugin.method]) {
-                self.plugins[plugin.label][plugin.method](plugin.opts);
+                self.plugins[plugin.label][plugin.method](plugin.opts, socket);
             }
         });
 

@@ -1,8 +1,8 @@
 ﻿"use strict";
 
 var BaseRooms = require('./BaseRooms');
-var Html5Entities = require('html-entities').Html5Entities;
 var Users = require('../Users.js');
+var Html5Entities = require('html-entities').Html5Entities;
 
 class ChatRoom extends BaseRooms {
     constructor(SocketIo, path) {

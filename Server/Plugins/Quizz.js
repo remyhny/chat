@@ -1,4 +1,5 @@
 ﻿"use strict";
+var Html5Entities = require('html-entities').Html5Entities;
 
 class Quizz {
     constructor(room, mongo) {
@@ -11,6 +12,7 @@ class Quizz {
         this.currentQuestion = null;
         this.questionDelayTimeoutId = null;
         this.mongo = mongo;
+        this.entities = new Html5Entities();
     }
 
     formatQuestion(question) {
@@ -109,6 +111,12 @@ class Quizz {
         this.currentQuestion = null;
     };
 
+    getQuestions(opts, socket) {
+        this.mongo.find('questions', 'schemaQuestion').then(function (data) {
+            socket.emit('getQuestions', data);
+        });
+    }
+
     initQuizz(options) {
         var self = this;
         var prom = new Promise(function (resolve, reject) {
@@ -178,10 +186,11 @@ class Quizz {
             reverse: true
         };
         self.mongo.find('questions', 'schemaQuestion', mongoOpts).then(function (data) {
+            var response = self.entities.encode(question.response);
             var newQuestion = {
                 id: 1,
                 label: question.label,
-                response: question.response,
+                response: response,
                 author: question.author
             }
             if (data && data.length) {

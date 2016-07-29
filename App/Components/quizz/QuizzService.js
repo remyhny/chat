@@ -17,6 +17,16 @@
         SocketService.emit('plugin', plugin);
     };
 
+    this.getQuestions = function(){
+        var plugin = {
+            label : 'quizz',
+            method: 'getQuestions',
+            opts : null
+        }
+
+        SocketService.emit('plugin', plugin);
+    }
+
     SocketService.addListener('newMessage', 'quizz', function (message) {
         if (!message.IA) {
             var plugin = {
@@ -29,5 +39,9 @@
             };
             SocketService.emit('plugin', plugin);
         }
+    });
+
+    SocketService.addListener('getQuestions', 'quizz', function (questions) {
+        console.log(questions);
     });
 }]);
